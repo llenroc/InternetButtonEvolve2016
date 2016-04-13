@@ -2,9 +2,13 @@
 
 	"event": "SimonSays",
 
-	"url": "https://internetbutton-ns.servicebus.windows.net/internetbutton/messages",
+	"url": "https://InternetButtonHub.azure-devices.net/devices/deviceeaa589217f034e06990ca83d92af3583/messages/events",
 
 	"requestType": "POST",
+
+	"headers": {
+    	"Authorization": "Ee21Q4xWy+M0XXfq2PPUW1Vd1eY0u7JQ4ijQcC1Q8QM="
+	},
 
 	"json": {
 
@@ -21,14 +25,5 @@
 		 "guid": "{{SPARK_CORE_ID}}"
 	},
 
-	"azure_sas_token": {
-
-		"key_name": "D1",
-
-		"key": "21pMdYNXqTFG0VKMVWQWUmdnBA3AHLdDUx+sDm13ZdE="
-
-	},
-
 	"mydevices": true
-
 }
