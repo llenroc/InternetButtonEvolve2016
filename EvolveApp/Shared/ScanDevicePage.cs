@@ -5,6 +5,7 @@ using EvolveApp.Views.Pages;
 using Particle;
 using System.Threading.Tasks;
 using EvolveApp.ViewModels;
+using EvolveApp.Pages;
 
 namespace EvolveApp
 {
@@ -73,22 +74,29 @@ namespace EvolveApp
 			{
 				ViewModel.SetLock();
 
-				var scanPage = new ZXingScannerPage();
+				await ViewModel.GetDevice("380028000847343337373738");
+				//USE THIS AREA TO PUSH WHATEVER PAGE YOU WANT TO EDIT
+				await Navigation.PushAsync(new DeviceLandingPage(ViewModel.Device));
 
-				scanPage.OnScanResult += async (result) =>
-			   {
-				   scanPage.IsScanning = false;
+				ViewModel.ClearLock();
+				//var scanPage = new ZXingScannerPage();
 
-				   Device.BeginInvokeOnMainThread(async () =>
-				   {
-					   await Navigation.PopModalAsync();
-					   await ViewModel.GetDevice("380028000847343337373738");
-					   await Navigation.PushAsync(new DeviceLandingPage(ViewModel.Device));
-					   ViewModel.ClearLock();
-				   });
-			   };
+				//scanPage.OnScanResult += async (result) =>
+				//  {
+				//   scanPage.IsScanning = false;
 
-				await Navigation.PushModalAsync(scanPage);
+				//   Device.BeginInvokeOnMainThread(async () =>
+				//   {
+				//	   await Navigation.PopModalAsync();
+				//	   await ViewModel.GetDevice("380028000847343337373738");
+				//	   await Navigation.PushAsync(new DeviceLandingPage(ViewModel.Device));
+
+
+				//	   ViewModel.ClearLock();
+				//   });
+				//  };
+
+				//await Navigation.PushModalAsync(scanPage);
 			};
 
 			indicator.SetBinding(ActivityIndicator.IsRunningProperty, "IsBusy");

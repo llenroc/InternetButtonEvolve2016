@@ -35,8 +35,6 @@ namespace EvolveApp.Droid
 			ZXing.Net.Mobile.Forms.Android.Platform.Init();
 
 			LoadApplication(new App());
-
-
 		}
 	}
 }

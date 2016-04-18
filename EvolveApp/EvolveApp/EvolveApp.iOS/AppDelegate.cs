@@ -26,6 +26,7 @@ namespace EvolveApp.iOS
 		{
 			global::Xamarin.Forms.Forms.Init();
 			ZXing.Net.Mobile.Forms.iOS.Platform.Init();
+
 			EnumerateFonts();
 
 			// Initalise TextStyle
