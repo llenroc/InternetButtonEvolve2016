@@ -17,8 +17,9 @@ namespace EvolveApp.ViewModels
 		public string simonMoves;
 		bool buttonLock;
 
-		public SimonSaysViewModel()
+		public SimonSaysViewModel(ParticleDevice device)
 		{
+			InternetButton = device;
 		}
 
 		public bool ShowClearButton
@@ -180,8 +181,8 @@ namespace EvolveApp.ViewModels
 		{
 			get
 			{
-				if (gameRunning) return Color.Blue;
-				return Color.Red;
+				if (gameRunning) return AppColors.Blue;
+				return AppColors.Green;
 			}
 		}
 

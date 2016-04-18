@@ -57,8 +57,10 @@ namespace Console
 			//Connection String: HostName=InternetButtonHub.azure-devices.net;DeviceId=deviceeaa589217f034e06990ca83d92af3583;SharedAccessKey=Ee21Q4xWy+M0XXfq2PPUW1Vd1eY0u7JQ4ijQcC1Q8QM=;GatewayHostName=ssl://InternetButtonHub.azure-devices.net:8883
 			//Documentation for SAS Token
 			//https://azure.microsoft.com/en-us/documentation/articles/iot-hub-sas-tokens/
-			var sasToken = String.Format(CultureInfo.InvariantCulture,
-				 $"SharedAccessSignature sig={UrlEncode(signature)}&se={expiry}&sr={uri}");//&skn={keyName}
+			//var sasToken = String.Format(CultureInfo.InvariantCulture,
+			//	 $"SharedAccessSignature sig={UrlEncode(signature)}&se={expiry}&sr={uri}");//&skn={keyName}
+
+			var sasToken = "HostName=InternetButtonHub.azure-devices.net;DeviceId=deviceeaa589217f034e06990ca83d92af3583;SharedAccessSignature=SharedAccessSignature sr=InternetButtonHub.azure-devices.net%2fdevices%2fdeviceeaa589217f034e06990ca83d92af3583&sig=XmMwMXvVYcp3QSSOD%2fwTiwH7Nak%2fzJIYoSpYaFWiH5U%3d&se=1460992358";
 
 			WriteLine(sasToken);
 

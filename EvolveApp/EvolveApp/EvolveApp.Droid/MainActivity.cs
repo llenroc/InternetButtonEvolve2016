@@ -6,19 +6,37 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using TextStyles.Android;
 
 namespace EvolveApp.Droid
 {
-    [Activity(Label = "EvolveApp", Icon = "@drawable/icon", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
-    public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsApplicationActivity
-    {
-        protected override void OnCreate(Bundle bundle)
-        {
-            base.OnCreate(bundle);
+	[Activity(Label = "EvolveApp",
+			  Icon = "@drawable/icon",
+			  ScreenOrientation = ScreenOrientation.Portrait,
+			  ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation,
+			  Theme = "@style/MyTheme",
+			  MainLauncher = true
+			 )]
+	public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
+	{
+		protected override void OnCreate(Bundle bundle)
+		{
+			TabLayoutResource = Resource.Layout.Tabbar;
+			ToolbarResource = Resource.Layout.Toolbar;
 
-            global::Xamarin.Forms.Forms.Init(this, bundle);
-            LoadApplication(new App());
-        }
-    }
+			base.OnCreate(bundle);
+
+			// Initialise the TextStyle Class
+			TextStyle.Instance.AddFont("SegoeUI-Regular", "SegoeUIRegular.ttf");
+			TextStyle.Instance.AddFont("SegoeUI-Light", "SegoeUILight.ttf");
+			TextStyle.Instance.SetCSS(App.CSS);
+
+			global::Xamarin.Forms.Forms.Init(this, bundle);
+			ZXing.Net.Mobile.Forms.Android.Platform.Init();
+
+			LoadApplication(new App());
+
+
+		}
+	}
 }
-

@@ -12,6 +12,22 @@ namespace EvolveApp.ViewModels
 
 		public INavigation NavInstance { get; set; }
 
+		bool isBusy;
+		public bool IsBusy
+		{
+			get { return isBusy; }
+			set
+			{
+				isBusy = value;
+				OnPropertyChanged("IsBusy");
+			}
+		}
+
+		public void SetPrivateBusy(bool valueToSet)
+		{
+			isBusy = valueToSet;
+		}
+
 		public event PropertyChangedEventHandler PropertyChanged;
 
 		protected void OnPropertyChanged(string propertyName = null)

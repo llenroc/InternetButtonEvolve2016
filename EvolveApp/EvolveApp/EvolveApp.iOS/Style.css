@@ -1,0 +1,35 @@
+﻿h1{
+	font-family    		: "SegoeUI-Light";
+	font-size        	: 38px;
+	text-overflow		: "ellipsis";
+	text-align			: "center";
+	lines				: 0;
+	color				: #1C2B39;
+	letter-spacing		: 0;
+	line-height			: 34;
+}
+
+h2{
+	font-family    		: "SegoeUI-Regular";
+	font-size        	: 20px;
+	text-overflow		: "ellipsis";
+	text-align			: "center";
+	lines				: 0;
+	color				: #07add0;
+	text-transform		: "uppercase";
+}
+
+body{
+	font-family      	: "SegoeUI-Regular";
+	color            	: #778687;
+	font-size        	: 16;
+	text-align			: "center";
+	line-height			: 21;
+}
+
+button{
+	font-family      	: "SegoeUI-Regular";
+	color            	: #ffffff;
+	font-size        	: 16;
+	text-align			: "center";
+}
