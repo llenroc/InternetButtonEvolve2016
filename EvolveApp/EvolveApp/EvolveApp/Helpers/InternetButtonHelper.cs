@@ -3,10 +3,10 @@ namespace EvolveApp.Helpers
 {
 	public static class InternetButtonHelper
 	{
-		public static string Olive = "380028000847343337373738";
-		public static string Charlie = "";
-		public static string Kirby = "";
-		public static string Whiskey = "";
+		public static string Olive = "3d002d000447343233323032";
+		public static string Charlie = "28002b000347343233323032";
+		public static string Kirby = "3f0020000447343232363230";
+		public static string Whiskey = "20003f000547343232363230";
 		public static string Anarkali = "";
 
 		public static bool CheckDeviceId(string id)
