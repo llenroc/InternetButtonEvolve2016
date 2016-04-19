@@ -52,6 +52,7 @@
 	<array>
 		<string>SegoeUIRegular.ttf</string>
 		<string>SegoeUILight.ttf</string>
+		<string>SegoeUIBold.ttf</string>
 	</array>
 </dict>
 </plist>

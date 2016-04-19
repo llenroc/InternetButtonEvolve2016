@@ -1,26 +1,37 @@
 ﻿using System;
+using System.Threading.Tasks;
+
+using Particle;
 using Xamarin.Forms;
 using ZXing.Net.Mobile.Forms;
-using EvolveApp.Views.Pages;
-using Particle;
-using System.Threading.Tasks;
-using EvolveApp.ViewModels;
+
 using EvolveApp.Pages;
+using EvolveApp.Helpers;
+using EvolveApp.ViewModels;
+using EvolveApp.Views.Pages;
 
 namespace EvolveApp
 {
 	public class ScanDevicePage : ContentPage
 	{
-		bool resultReceivedLock;
-		ScanDeviceViewModel ViewModel;
-
 		public ScanDevicePage()
 		{
 			NavigationPage.SetHasNavigationBar(this, false);
 
-			ViewModel = new ScanDeviceViewModel();
-			BindingContext = ViewModel;
+			Title = "EvolveApp";
+			BackgroundColor = AppColors.BackgroundColor;
+			var viewModel = new ScanDeviceViewModel();
+			BindingContext = viewModel;
 
+			var layout = new RelativeLayout();
+
+			var titleLabel = new StyledLabel
+			{
+				Text = "Particle Internet Button",
+				CssStyle = "h1",
+			};
+			var subtitleLabel = new StyledLabel { Text = "Take Control!", CssStyle = "h2" };
+			var descriptionLabel = new StyledLabel { Text = "Just scan the QR barcode of any device to take control.", CssStyle = "body" };
 			var indicator = new ActivityIndicator();
 			var scanBarcodeButton = new StyledButton
 			{
@@ -28,75 +39,73 @@ namespace EvolveApp
 				CssStyle = "button",
 				BackgroundColor = AppColors.Blue,
 				BorderRadius = 0,
-				WidthRequest = 150
+				HeightRequest = AppSettings.ButtonHeight
 			};
 
-			Title = "EvolveApp";
-			BackgroundColor = AppColors.BackgroundColor;
-			Content = new StackLayout
-			{
-				VerticalOptions = LayoutOptions.Center,
-				Padding = new Thickness(30),
-				Children = {
-					new StyledLabel {
-						HorizontalTextAlignment = TextAlignment.Center,
-						Text = "Particle Internet Button",
-						CssStyle = "h1"
-					},
-					new StyledLabel {
-						HorizontalTextAlignment = TextAlignment.Center,
-						Text = "Take Control!",
-						CssStyle = "h2"
-					},
-					new BoxView{
-						HeightRequest = 20
-					},
-					new StyledLabel {
-						HorizontalTextAlignment = TextAlignment.Center,
-						Text = "Just scan the QR barcode of any device to take control.",
-						CssStyle = "body"
-					},
-					new BoxView{
-						HeightRequest = 10
-					},
-					scanBarcodeButton,
-					indicator
-				}
-			};
+			layout.Children.Add(titleLabel,
+				xConstraint: Constraint.Constant(AppSettings.Margin),
+				yConstraint: Constraint.Constant(AppSettings.Margin * 3),
+				widthConstraint: Constraint.RelativeToParent(p => p.Width - AppSettings.Margin * 2),
+				heightConstraint: Constraint.Constant(100)
+			);
+			layout.Children.Add(subtitleLabel,
+				xConstraint: Constraint.Constant(AppSettings.Margin),
+				yConstraint: Constraint.RelativeToView(titleLabel, (p, v) => v.Height + v.Y + AppSettings.ItemPadding),
+				widthConstraint: Constraint.RelativeToParent(p => p.Width - AppSettings.Margin * 2)
+			);
+			layout.Children.Add(descriptionLabel,
+				xConstraint: Constraint.Constant(AppSettings.Margin),
+				yConstraint: Constraint.RelativeToView(subtitleLabel, (p, v) => v.Height + v.Y + AppSettings.Margin),
+				widthConstraint: Constraint.RelativeToParent(p => p.Width - AppSettings.Margin * 2)
+			);
+			layout.Children.Add(indicator,
+				xConstraint: Constraint.RelativeToParent(p => p.Width / 4),
+				yConstraint: Constraint.RelativeToParent(p => p.Width / 4),
+				widthConstraint: Constraint.RelativeToParent(p => p.Width / 2),
+				heightConstraint: Constraint.RelativeToParent(p => p.Width / 2)
+			);
+			layout.Children.Add(scanBarcodeButton,
+				xConstraint: Constraint.Constant(AppSettings.Margin),
+				yConstraint: Constraint.RelativeToParent(p => p.Height - AppSettings.Margin - AppSettings.ButtonHeight),
+				widthConstraint: Constraint.RelativeToParent(p => p.Width - AppSettings.Margin * 2),
+				heightConstraint: Constraint.Constant(50)
+			);
+
+			Content = layout;
 
 #if __IOS__
-			scanBarcodeButton.FontFamily = "SegoeUI-Light";
-			scanBarcodeButton.FontSize = 16;
 			scanBarcodeButton.TextColor = Color.FromHex("#ffffff");
 #endif
 
 			scanBarcodeButton.Clicked += async (object sender, EventArgs e) =>
 			{
-				ViewModel.SetLock();
+				viewModel.SetLock();
 
-				await ViewModel.GetDevice("380028000847343337373738");
-				//USE THIS AREA TO PUSH WHATEVER PAGE YOU WANT TO EDIT
-				await Navigation.PushAsync(new DeviceLandingPage(ViewModel.Device));
+				var scanPage = new ZXingScannerPage();
 
-				ViewModel.ClearLock();
-				//var scanPage = new ZXingScannerPage();
+				scanPage.OnScanResult += async (result) =>
+				{
+					scanPage.IsScanning = false;
 
-				//scanPage.OnScanResult += async (result) =>
-				//  {
-				//   scanPage.IsScanning = false;
+					Device.BeginInvokeOnMainThread(async () =>
+					{
+						await Navigation.PopModalAsync();
 
-				//   Device.BeginInvokeOnMainThread(async () =>
-				//   {
-				//	   await Navigation.PopModalAsync();
-				//	   await ViewModel.GetDevice("380028000847343337373738");
-				//	   await Navigation.PushAsync(new DeviceLandingPage(ViewModel.Device));
+						//var isValidDevice = InternetButtonHelper.CheckDeviceId(result.Text);
+						//if (isValidDevice)
+						//{
+						//await viewModel.GetDevice(result.Text);
+						await viewModel.GetDevice(InternetButtonHelper.Olive);
+						await Navigation.PushAsync(new DeviceLandingPage(viewModel.Device));
+						//}
+						//else
+						//	DisplayAlert("Error", "The barcode scanner had an error. Please try scanning the barcode again", "Ok");
 
+						viewModel.ClearLock();
+					});
+				};
 
-				//	   ViewModel.ClearLock();
-				//   });
-				//  };
-
-				//await Navigation.PushModalAsync(scanPage);
+				await Navigation.PushModalAsync(scanPage);
 			};
 
 			indicator.SetBinding(ActivityIndicator.IsRunningProperty, "IsBusy");

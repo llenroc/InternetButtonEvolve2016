@@ -19,10 +19,10 @@ namespace EvolveApp.Pages
 			BackgroundColor = AppColors.BackgroundColor;
 			Title = "Simon Says";
 
-			red = new Button { Opacity = 0.5, BackgroundColor = Color.Red, BorderRadius = 0 };
-			blue = new Button { Opacity = 0.5, BackgroundColor = Color.Blue, BorderRadius = 0 };
-			green = new Button { Opacity = 0.5, BackgroundColor = Color.Green, BorderRadius = 0 };
-			yellow = new Button { Opacity = 0.5, BackgroundColor = Color.Yellow, BorderRadius = 0 };
+			red = new Button { BackgroundColor = SimonSaysColors.Red, BorderRadius = 0 };
+			blue = new Button { BackgroundColor = SimonSaysColors.Blue, BorderRadius = 0 };
+			green = new Button { BackgroundColor = SimonSaysColors.Green, BorderRadius = 0 };
+			yellow = new Button { BackgroundColor = SimonSaysColors.Yellow, BorderRadius = 0 };
 
 			l1 = new ContentView { HorizontalOptions = LayoutOptions.FillAndExpand };
 			l2 = new ContentView { HorizontalOptions = LayoutOptions.FillAndExpand };
@@ -35,12 +35,13 @@ namespace EvolveApp.Pages
 			l9 = new ContentView { HorizontalOptions = LayoutOptions.FillAndExpand };
 			l10 = new ContentView { HorizontalOptions = LayoutOptions.FillAndExpand };
 
+			var stackPadding = 2d;
 			StackLayout lightStack = new StackLayout
 			{
 				Orientation = StackOrientation.Horizontal,
 				Children = { l1, l2, l3, l4, l5, l6, l7, l8, l9, l10 },
-				Padding = new Thickness(5, 0, 0, 5),
-				BackgroundColor = Color.Gray
+				Padding = new Thickness(stackPadding, 0, stackPadding, 0),
+				BackgroundColor = Color.Transparent
 			};
 
 			var clearSubmission = new Button
@@ -54,60 +55,63 @@ namespace EvolveApp.Pages
 				BorderColor = Color.Black,
 				BorderWidth = 1
 			};
-			Button actionButton = new Button { BorderRadius = 0, TextColor = Color.White };
+			StyledButton actionButton = new StyledButton { BorderRadius = 0, TextColor = Color.White, CssStyle = "button", BorderColor = AppColors.Blue };
 
 			var layout = new RelativeLayout();
 
+			var buttonConstraint = Constraint.RelativeToParent((p) => (p.Width / 2) - AppSettings.Margin - AppSettings.ItemPadding / 2);
+
 			layout.Children.Add(red,
-				xConstraint: Constraint.Constant(10),
-				yConstraint: Constraint.Constant(10),
-				widthConstraint: Constraint.RelativeToParent((p) => (p.Width / 2) - 15),
-				heightConstraint: Constraint.RelativeToParent((p) => (p.Width / 2) - 15)
+				xConstraint: Constraint.Constant(AppSettings.Margin),
+				yConstraint: Constraint.Constant(AppSettings.Margin),
+				widthConstraint: buttonConstraint,
+				heightConstraint: buttonConstraint
 			);
-			layout.Children.Add(green,
-				xConstraint: Constraint.RelativeToParent((p) => (p.Width / 2) + 5),
-				yConstraint: Constraint.Constant(10),
-				widthConstraint: Constraint.RelativeToParent((p) => (p.Width / 2) - 15),
-				heightConstraint: Constraint.RelativeToParent((p) => (p.Width / 2) - 15)
-			);
-			layout.Children.Add(blue,
-				xConstraint: Constraint.Constant(10),
-				yConstraint: Constraint.RelativeToParent((p) => (p.Width / 2)),
-				widthConstraint: Constraint.RelativeToParent((p) => (p.Width / 2) - 15),
-				heightConstraint: Constraint.RelativeToParent((p) => (p.Width / 2) - 15)
-			);
+
 			layout.Children.Add(yellow,
-				xConstraint: Constraint.RelativeToParent((p) => (p.Width / 2) + 5),
-				yConstraint: Constraint.RelativeToParent((p) => (p.Width / 2)),
-				widthConstraint: Constraint.RelativeToParent((p) => (p.Width / 2) - 15),
-				heightConstraint: Constraint.RelativeToParent((p) => (p.Width / 2) - 15)
+				xConstraint: Constraint.RelativeToParent((p) => (p.Width / 2) + AppSettings.ItemPadding / 2),
+				yConstraint: Constraint.Constant(AppSettings.Margin),
+				widthConstraint: buttonConstraint,
+				heightConstraint: buttonConstraint
 			);
+
+			layout.Children.Add(blue,
+				xConstraint: Constraint.Constant(AppSettings.Margin),
+				yConstraint: Constraint.RelativeToView(red, (p, v) => v.Height + v.Y + AppSettings.ItemPadding),
+				widthConstraint: buttonConstraint,
+				heightConstraint: buttonConstraint
+			);
+
+			layout.Children.Add(green,
+				xConstraint: Constraint.RelativeToParent((p) => (p.Width / 2) + AppSettings.ItemPadding / 2),
+				yConstraint: Constraint.RelativeToView(yellow, (p, v) => v.Height + v.Y + AppSettings.ItemPadding),
+				widthConstraint: buttonConstraint,
+				heightConstraint: buttonConstraint
+			);
+
 			layout.Children.Add(lightStack,
-				xConstraint: Constraint.Constant(10),
-				yConstraint: Constraint.RelativeToView(yellow, (p, v) => v.Height + v.Y + 20),
-				widthConstraint: Constraint.RelativeToParent((p) => p.Width - 20),
-				heightConstraint: Constraint.Constant(20)
+				xConstraint: Constraint.Constant(AppSettings.Margin - stackPadding),
+				yConstraint: Constraint.RelativeToView(blue, (p, v) => v.Height + v.Y + AppSettings.ItemPadding * 2),
+				widthConstraint: Constraint.RelativeToParent((p) => p.Width - AppSettings.Margin * 2 + stackPadding * 2),
+				heightConstraint: Constraint.Constant(25) // TODO calculate the square size based on the width of the view
 			);
 			layout.Children.Add(clearSubmission,
-				xConstraint: Constraint.RelativeToView(lightStack, (p, v) => Device.OnPlatform(
-																				v.Width - 5,
-																				v.Width - 10,
-																				v.Width - 5
-																			)),
+				xConstraint: Constraint.RelativeToParent((p) => p.Width - AppSettings.Margin - Device.OnPlatform(10, 15, 15)),
 				yConstraint: Constraint.RelativeToView(lightStack, (p, v) => Device.OnPlatform(
 																				v.Y - 10,
 																				v.Y - 15,
 																				v.Y - 15
 																			)
 				),
-				widthConstraint: Constraint.Constant(Device.OnPlatform(20, 30, 30)),
-				heightConstraint: Constraint.Constant(Device.OnPlatform(20, 30, 30))
+				widthConstraint: Constraint.Constant(Device.OnPlatform(25, 30, 30)),
+				heightConstraint: Constraint.Constant(Device.OnPlatform(25, 30, 30))
 			);
+
 			layout.Children.Add(actionButton,
-				xConstraint: Constraint.Constant(10),
-				yConstraint: Constraint.RelativeToView(lightStack, (p, v) => v.Height + v.Y + 10),
-				widthConstraint: Constraint.RelativeToParent((p) => p.Width - 20),
-				heightConstraint: Constraint.RelativeToView(lightStack, (p, v) => p.Height - v.Y - v.Height - 20)
+				xConstraint: Constraint.Constant(AppSettings.Margin),
+				yConstraint: Constraint.RelativeToParent(p => p.Height - AppSettings.Margin - AppSettings.ButtonHeight),
+				widthConstraint: Constraint.RelativeToParent(p => p.Width - AppSettings.Margin * 2),
+				heightConstraint: Constraint.Constant(50)
 			);
 
 			Content = layout;

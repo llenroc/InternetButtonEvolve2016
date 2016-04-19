@@ -4,6 +4,7 @@ using System.Reflection;
 using System.Collections.Generic;
 using System.IO;
 using Xamarin.Forms;
+using EvolveApp.Helpers;
 
 namespace EvolveApp.ViewModels
 {
@@ -14,6 +15,12 @@ namespace EvolveApp.ViewModels
 		public DeviceLandingPageViewModel(ParticleDevice device)
 		{
 			Device = device;
+
+			if (!device.Connected)
+			{
+				SetLock();
+				IsBusy = false;
+			}
 		}
 
 		string currentApp;
@@ -29,14 +36,29 @@ namespace EvolveApp.ViewModels
 			}
 		}
 
+		public string AppDescription
+		{
+			get
+			{
+				var success = variables.TryGetValue("currentApp", out currentApp);
+				if (success && currentApp != "string")
+					return InternetButtonHelper.GetAppDescription(currentApp);
+				return "";
+			}
+		}
+
 		public string VariableCount
 		{
-			get { return $"{variables.Count}"; }
+			get { return $"{variables.Count}" ?? "0"; }
 		}
 
 		public string FunctionCount
 		{
-			get { return $"{Device.Functions.Count}"; }
+			get
+			{
+				if (Device.Functions == null) return "0";
+				return $"{Device.Functions?.Count}";
+			}
 		}
 
 		public bool DeviceConnected
@@ -102,12 +124,16 @@ namespace EvolveApp.ViewModels
 				{
 					var variableValue = await Device.GetVariableAsync(variable.Key);
 
-					if (!string.IsNullOrEmpty(variableValue.Result.ToString()))
+					if (variableValue.Result != null)
 					{
 						variables.Add(variable.Key, variableValue.Result.ToString());
 
 						if (variable.Key == "currentApp")
 							OnPropertyChanged("CurrentApp");
+					}
+					else {
+						Device.Connected = false;
+						break;
 					}
 				}
 			}
@@ -115,8 +141,18 @@ namespace EvolveApp.ViewModels
 			OnPropertyChanged("VariableCount");
 			OnPropertyChanged("FunctionCount");
 			OnPropertyChanged("DeviceConnected");
+			OnPropertyChanged("AppDescription");
 
-			SetLock(false);
+			if (Device.Connected)
+			{
+				System.Diagnostics.Debug.WriteLine("Device verified Connected");
+				SetLock(false);
+			}
+			else {
+				System.Diagnostics.Debug.WriteLine("Device verified Disconnected");
+				IsBusy = false;
+				OnPropertyChanged("CurrentApp");
+			}
 		}
 
 		public async Task<bool> TryFlashFileAsync(string fileSelected)

@@ -11,32 +11,36 @@ namespace EvolveApp.Views.Pages
 	public class DeviceLandingPage : ContentPage
 	{
 		DeviceLandingPageViewModel ViewModel;
-		RelativeLayout layout;
-		ActivityIndicator indicator;
-		Image deviceConnected;
-		DashboardWidget variableWidget, functionWidget;
+		//RelativeLayout layout;
+		//ActivityIndicator indicator;
+		//Image deviceConnected;
+		//DashboardWidget variableWidget, functionWidget;
 
 		public DeviceLandingPage(ParticleDevice device)
 		{
 			Title = "Mission Control";
+			BackgroundColor = AppColors.BackgroundColor;
 			ViewModel = new DeviceLandingPageViewModel(device);
 			BindingContext = ViewModel;
 
-			layout = new RelativeLayout();
-			indicator = new ActivityIndicator();
 
-			var deviceName = new StyledLabel { CssStyle = "h1" };
-			deviceConnected = new Image { Source = "notconnected.png" };
-			var currentAppLabel = new StyledLabel { CssStyle = "h2" };
-			variableWidget = new DashboardWidget();
-			functionWidget = new DashboardWidget();
 			var refreshDevice = new ToolbarItem { Icon = "ic_cached_white_24dp.png" };
+			var layout = new RelativeLayout();
+
+			var indicator = new ActivityIndicator();
+			var deviceName = new StyledLabel { CssStyle = "h1" };
+			var deviceConnected = new Image { Source = "notconnected.png" };
+			var currentAppLabel = new StyledLabel { CssStyle = "h2" };
+			var variableWidget = new DashboardWidget();
+			var functionWidget = new DashboardWidget();
+			var appDescription = new StyledLabel { CssStyle = "body" };
 			var interactButton = new StyledButton
 			{
 				Text = "START INTERACTION",
 				BackgroundColor = AppColors.Green,
 				CssStyle = "button",
 				BorderRadius = 0,
+				HeightRequest = 50,
 				IsEnabled = false
 			};
 			var flashButton = new StyledButton
@@ -45,46 +49,62 @@ namespace EvolveApp.Views.Pages
 				BackgroundColor = AppColors.Purple,
 				CssStyle = "button",
 				BorderRadius = 0,
+				HeightRequest = 50,
 				IsEnabled = false
 			};
 
+			var boxConstraint = Constraint.RelativeToParent(p => p.Width / 2 - AppSettings.Margin - AppSettings.ItemPadding / 2);
+
 			layout.Children.Add(deviceName,
-					xConstraint: Constraint.Constant(10),
-					yConstraint: Constraint.Constant(10)
-				);
-			layout.Children.Add(deviceConnected,
-				xConstraint: Constraint.RelativeToView(deviceName, (p, v) => v.X + v.Width + 5),
-				yConstraint: Constraint.Constant(20),
-				widthConstraint: Constraint.RelativeToView(deviceName, (p, v) => v.Height),
+				xConstraint: Constraint.Constant(AppSettings.Margin),
+				yConstraint: Constraint.Constant(Device.OnPlatform(AppSettings.Margin, 10, AppSettings.Margin)),
+				widthConstraint: Constraint.RelativeToParent(p => p.Width - AppSettings.Margin * 2)
+			);
+			//layout.Children.Add (deviceConnected,
+			//	xConstraint: Constraint.RelativeToView (deviceName, (p, v) => v.X + v.Width + 5),
+			//	yConstraint: Constraint.Constant (20),
+			//	widthConstraint: Constraint.RelativeToView (deviceName, (p, v) => v.Height),
+			//	heightConstraint: Constraint.RelativeToView (deviceName, (p, v) => v.Height)
+			//);
+			layout.Children.Add(currentAppLabel,
+				xConstraint: Constraint.Constant(AppSettings.Margin),
+				yConstraint: Constraint.RelativeToView(deviceName, (p, v) => v.Y + v.Height + 5),
+				widthConstraint: Constraint.RelativeToParent(p => p.Width - AppSettings.Margin * 2),
 				heightConstraint: Constraint.RelativeToView(deviceName, (p, v) => v.Height)
 			);
-			layout.Children.Add(currentAppLabel,
-				xConstraint: Constraint.Constant(20),
-				yConstraint: Constraint.RelativeToView(deviceName, (p, v) => v.Y + v.Height + 5)
-			);
 			layout.Children.Add(variableWidget,
-				xConstraint: Constraint.Constant(0),
-				yConstraint: Constraint.RelativeToView(currentAppLabel, (p, v) => v.Y + v.Height + 5),
-				widthConstraint: Constraint.RelativeToParent(p => p.Width / 2),
-				heightConstraint: Constraint.RelativeToParent(p => p.Width / 2)
+				xConstraint: Constraint.Constant(AppSettings.Margin),
+				yConstraint: Constraint.RelativeToView(currentAppLabel, (p, v) => Device.OnPlatform(
+																v.Y + v.Height + 5,
+																v.Y + v.Height,
+																v.Y + v.Height + 5)
+													  ),
+				widthConstraint: boxConstraint,
+				heightConstraint: boxConstraint
 			);
 			layout.Children.Add(functionWidget,
-				xConstraint: Constraint.RelativeToParent(p => p.Width / 2),
-				yConstraint: Constraint.RelativeToView(currentAppLabel, (p, v) => v.Y + v.Height + 5),
-				widthConstraint: Constraint.RelativeToParent(p => p.Width / 2),
-				heightConstraint: Constraint.RelativeToParent(p => p.Width / 2)
+				xConstraint: Constraint.RelativeToParent(p => p.Width / 2 + AppSettings.ItemPadding / 2),
+				yConstraint: Constraint.RelativeToView(variableWidget, (p, v) => v.Y),
+				widthConstraint: boxConstraint,
+				heightConstraint: boxConstraint
 			);
-			layout.Children.Add(interactButton,
-				xConstraint: Constraint.Constant(0),
-				yConstraint: Constraint.RelativeToView(functionWidget, (p, v) => v.Y + v.Height),
-				widthConstraint: Constraint.RelativeToParent(p => p.Width),
-				heightConstraint: Constraint.RelativeToView(functionWidget, (p, v) => (p.Height - v.Y - v.Height) / 2)
+			layout.Children.Add(new ScrollView { Content = appDescription },
+				xConstraint: Constraint.Constant(AppSettings.Margin),
+				yConstraint: Constraint.RelativeToView(functionWidget, (p, v) => v.Y + v.Height + 10),
+				widthConstraint: Constraint.RelativeToParent(p => p.Width - AppSettings.Margin * 2),
+				heightConstraint: Constraint.RelativeToView(functionWidget, (p, v) => p.Height - v.Y - v.Height - 10 - AppSettings.Margin - 2 * AppSettings.ButtonHeight - 20)
 			);
 			layout.Children.Add(flashButton,
-				xConstraint: Constraint.Constant(0),
-				yConstraint: Constraint.RelativeToView(interactButton, (p, v) => v.Y + v.Height),
-				widthConstraint: Constraint.RelativeToParent(p => p.Width),
-				heightConstraint: Constraint.RelativeToView(interactButton, (p, v) => (p.Height - v.Y - v.Height))
+				xConstraint: Constraint.Constant(AppSettings.Margin),
+				yConstraint: Constraint.RelativeToParent(p => p.Height - AppSettings.Margin - AppSettings.ButtonHeight),
+				widthConstraint: Constraint.RelativeToParent(p => p.Width - AppSettings.Margin * 2),
+				heightConstraint: Constraint.Constant(AppSettings.ButtonHeight)
+			);
+			layout.Children.Add(interactButton,
+				xConstraint: Constraint.Constant(AppSettings.Margin),
+				yConstraint: Constraint.RelativeToView(flashButton, (p, v) => v.Y - AppSettings.ButtonHeight - 10),
+				widthConstraint: Constraint.RelativeToParent(p => p.Width - AppSettings.Margin * 2),
+				heightConstraint: Constraint.Constant(AppSettings.ButtonHeight)
 			);
 			layout.Children.Add(indicator,
 				xConstraint: Constraint.RelativeToParent(p => p.Width / 4),
@@ -98,12 +118,7 @@ namespace EvolveApp.Views.Pages
 
 			if (Device.OS == TargetPlatform.iOS)
 			{
-				interactButton.FontFamily = "SegoeUI-Light";
-				interactButton.FontSize = 16;
 				interactButton.TextColor = Color.FromHex("#ffffff");
-
-				flashButton.FontFamily = "SegoeUI-Light";
-				flashButton.FontSize = 16;
 				flashButton.TextColor = Color.FromHex("#ffffff");
 			}
 
@@ -120,6 +135,7 @@ namespace EvolveApp.Views.Pages
 			interactButton.SetBinding(Button.IsEnabledProperty, "InteractButtonLock");
 			flashButton.SetBinding(Button.IsEnabledProperty, "FlashButtonLock");
 			refreshDevice.SetBinding(ToolbarItem.CommandProperty, "RefreshDeviceCommand");
+			appDescription.SetBinding(Label.TextProperty, "AppDescription");
 
 			interactButton.Clicked += async (object sender, EventArgs e) =>
 			{
@@ -132,18 +148,18 @@ namespace EvolveApp.Views.Pages
 			};
 
 			flashButton.Clicked += async (object sender, EventArgs e) =>
-						{
-							var result = await DisplayActionSheet("Pick File to Flash", "Cancel", null, "RGB LED", "Shake LED", "Simon Says", "Follow me LED");
-							if (result != "Cancel")
-							{
-								var success = await ViewModel.TryFlashFileAsync(result);
-								if (!success)
-								{
-									await DisplayAlert("Error", "The Device connection timed out after 30 seconds. Please re-scan the barcode once the device breaths a solid cyan light", "Ok");
-									await Navigation.PopAsync();
-								}
-							}
-						};
+			{
+				var result = await DisplayActionSheet("Pick File to Flash", "Cancel", null, "RGB LED", "Shake LED", "Simon Says", "Follow me LED");
+				if (result != "Cancel")
+				{
+					var success = await ViewModel.TryFlashFileAsync(result);
+					if (!success)
+					{
+						await DisplayAlert("Error", "The Device connection timed out after 30 seconds. Please re-scan the barcode once the device breaths a solid cyan light", "Ok");
+						await Navigation.PopAsync();
+					}
+				}
+			};
 		}
 
 		protected async override void OnAppearing()

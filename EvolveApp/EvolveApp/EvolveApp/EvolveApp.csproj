@@ -50,6 +50,9 @@
     <Compile Include="Views\Controls\DashboardWidget.cs" />
     <Compile Include="Views\Pages\ChangeLEDColorPage.cs" />
     <Compile Include="ViewModels\ChangeLEDColorViewModel.cs" />
+    <Compile Include="Helpers\AppSettings.cs" />
+    <Compile Include="Models\SimonSaysColors.cs" />
+    <Compile Include="Helpers\InternetButtonHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">
@@ -73,9 +76,6 @@
     <Reference Include="Xamarin.Forms.Platform">
       <HintPath>..\..\packages\Xamarin.Forms.2.1.0.6529\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.Platform.dll</HintPath>
     </Reference>
-    <Reference Include="Particle">
-      <HintPath>..\..\packages\ParticleXamarinSDK.1.1.1\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Particle.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -96,6 +96,12 @@
     <EmbeddedResource Include="Binaries\simonsays.bin" />
     <EmbeddedResource Include="Binaries\followme.bin" />
     <EmbeddedResource Include="Binaries\shakeled.bin" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\particle-xamarin\Particle\Particle.csproj">
+      <Project>{A6E8BFFA-840F-4078-88F4-D4179C23382F}</Project>
+      <Name>Particle</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\..\packages\Xamarin.Forms.2.1.0.6529\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets" Condition="Exists('..\..\packages\Xamarin.Forms.2.1.0.6529\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets')" />

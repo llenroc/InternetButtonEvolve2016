@@ -119,9 +119,6 @@
     <Reference Include="Xamarin.Forms.Platform">
       <HintPath>..\..\packages\Xamarin.Forms.2.1.0.6529\lib\MonoAndroid10\Xamarin.Forms.Platform.dll</HintPath>
     </Reference>
-    <Reference Include="Particle">
-      <HintPath>..\..\packages\ParticleXamarinSDK.1.1.1\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Particle.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainActivity.cs" />
@@ -161,6 +158,10 @@
     <ProjectReference Include="..\EvolveApp\EvolveApp.csproj">
       <Project>{A83CCC0F-B250-4836-83FF-53BB92F50419}</Project>
       <Name>EvolveApp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\particle-xamarin\Particle\Particle.csproj">
+      <Project>{A6E8BFFA-840F-4078-88F4-D4179C23382F}</Project>
+      <Name>Particle</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
