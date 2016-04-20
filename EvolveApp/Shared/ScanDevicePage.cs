@@ -81,32 +81,35 @@ namespace EvolveApp
 			{
 				viewModel.SetLock();
 
-				var scanPage = new ZXingScannerPage();
+                //await viewModel.GetDevice(InternetButtonHelper.Kirby);
+                //await Navigation.PushAsync(new DeviceLandingPage(viewModel.Device));
 
-				scanPage.OnScanResult += async (result) =>
-				{
-					scanPage.IsScanning = false;
+                var scanPage = new ZXingScannerPage();
 
-					Device.BeginInvokeOnMainThread(async () =>
-					{
-						await Navigation.PopModalAsync();
+                scanPage.OnScanResult += async (result) =>
+                {
+                    scanPage.IsScanning = false;
 
-						//var isValidDevice = InternetButtonHelper.CheckDeviceId(result.Text);
-						//if (isValidDevice)
-						//{
-						//await viewModel.GetDevice(result.Text);
-						await viewModel.GetDevice(InternetButtonHelper.Olive);
-						await Navigation.PushAsync(new DeviceLandingPage(viewModel.Device));
-						//}
-						//else
-						//	DisplayAlert("Error", "The barcode scanner had an error. Please try scanning the barcode again", "Ok");
+                    Device.BeginInvokeOnMainThread(async () =>
+                    {
+                        await Navigation.PopModalAsync();
 
-						viewModel.ClearLock();
-					});
-				};
+                    var isValidDevice = InternetButtonHelper.CheckDeviceId(result.Text);
+                        if (isValidDevice)
+                        {
+                        await viewModel.GetDevice(result.Text);
+                        //await viewModel.GetDevice(InternetButtonHelper.Kirby);
+                        await Navigation.PushAsync(new DeviceLandingPage(viewModel.Device));
+                        }
+                        else
+                            DisplayAlert("Error", "The barcode scanner had an error. Please try scanning the barcode again", "Ok");
 
-				await Navigation.PushModalAsync(scanPage);
-			};
+                        viewModel.ClearLock();
+                    });
+                };
+
+                await Navigation.PushModalAsync(scanPage);
+            };
 
 			indicator.SetBinding(ActivityIndicator.IsRunningProperty, "IsBusy");
 			scanBarcodeButton.SetBinding(Button.IsEnabledProperty, "ButtonLock");

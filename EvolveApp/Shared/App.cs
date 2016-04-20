@@ -27,12 +27,8 @@ namespace EvolveApp
 
 #if __ANDROID__
 				var stream = assembly.GetManifestResourceStream("EvolveApp.Droid.Style.css");
-#endif
 
-#if __IOS__
-				var stream = assembly.GetManifestResourceStream("EvolveApp.iOS.Style.css");
-#endif
-				string css = "";
+                string css = "";
 
 				using (var reader = new System.IO.StreamReader(stream))
 				{
@@ -40,7 +36,22 @@ namespace EvolveApp
 				}
 
 				return css;
-			}
+#endif
+
+#if __IOS__
+                var stream = assembly.GetManifestResourceStream("EvolveApp.iOS.Style.css");
+
+                string css = "";
+
+                using (var reader = new System.IO.StreamReader(stream))
+                {
+                    css = reader.ReadToEnd();
+                }
+
+                return css;
+#endif
+                return "";
+            }
 		}
 
 		public App()
