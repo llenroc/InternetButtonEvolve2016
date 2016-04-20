@@ -111,5 +111,10 @@ namespace EvolveApp
 			indicator.SetBinding(ActivityIndicator.IsRunningProperty, "IsBusy");
 			scanBarcodeButton.SetBinding(Button.IsEnabledProperty, "ButtonLock");
 		}
+
+		protected override bool OnBackButtonPressed()
+		{
+			return false;
+		}
 	}
 }
