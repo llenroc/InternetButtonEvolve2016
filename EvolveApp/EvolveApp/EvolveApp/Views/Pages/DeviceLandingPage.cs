@@ -60,7 +60,7 @@ namespace EvolveApp.Views.Pages
 
 			layout.Children.Add(deviceName,
 				xConstraint: Constraint.Constant(AppSettings.Margin),
-				yConstraint: Constraint.Constant(Device.OnPlatform(AppSettings.Margin, 10, AppSettings.Margin)),
+				yConstraint: Constraint.Constant(Device.OnPlatform(AppSettings.Margin, 10, 10)),
 				widthConstraint: Constraint.RelativeToParent(p => p.Width - AppSettings.Margin * 2)
 			);
 			//layout.Children.Add (deviceConnected,
@@ -80,7 +80,7 @@ namespace EvolveApp.Views.Pages
 				yConstraint: Constraint.RelativeToView(currentAppLabel, (p, v) => Device.OnPlatform(
 																v.Y + v.Height + 5,
 																v.Y + v.Height,
-																v.Y + v.Height + 5)
+																v.Y + v.Height)
 													  ),
 				widthConstraint: boxConstraint,
 				heightConstraint: boxConstraint
@@ -129,7 +129,9 @@ namespace EvolveApp.Views.Pages
 			ToolbarItems.Add(refreshDevice);
 
 			indicator.SetBinding(ActivityIndicator.IsRunningProperty, "IsBusy");
-			indicator.SetBinding(ActivityIndicator.IsVisibleProperty, "IsBusy");
+            if (Device.OS != TargetPlatform.iOS && Device.OS != TargetPlatform.Android)
+                indicator.SetBinding(ActivityIndicator.IsVisibleProperty, "IsBusy");
+
 			deviceName.SetBinding(Label.TextProperty, "Device.Name");
 			currentAppLabel.SetBinding(Label.TextProperty, "CurrentApp");
 			deviceConnected.SetBinding(Image.IsVisibleProperty, "DeviceConnected");

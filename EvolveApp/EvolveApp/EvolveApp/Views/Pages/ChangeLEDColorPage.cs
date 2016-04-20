@@ -92,11 +92,15 @@ namespace EvolveApp
 
 			Content = layout;
 
-			redSlider.SetBinding(Slider.ValueProperty, "R", BindingMode.TwoWay);
+
+            indicator.SetBinding(ActivityIndicator.IsRunningProperty, "IsBusy");
+            if (Device.OS != TargetPlatform.iOS && Device.OS != TargetPlatform.Android)
+                indicator.SetBinding(ActivityIndicator.IsVisibleProperty, "IsBusy");
+
+            redSlider.SetBinding(Slider.ValueProperty, "R", BindingMode.TwoWay);
 			greenSlider.SetBinding(Slider.ValueProperty, "G", BindingMode.TwoWay);
 			blueSlider.SetBinding(Slider.ValueProperty, "B", BindingMode.TwoWay);
 			colorPreview.SetBinding(BoxView.BackgroundColorProperty, "ColorBoxColor");
-			indicator.SetBinding(ActivityIndicator.IsRunningProperty, "IsBusy");
 			push.SetBinding(Button.CommandProperty, "PushColorCommand");
 			lightShow.SetBinding(Button.CommandProperty, "LightShowCommand");
 			off.SetBinding(ToolbarItem.CommandProperty, "LedsOffCommand");

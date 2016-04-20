@@ -22,10 +22,10 @@ namespace EvolveApp.Views.Controls
 			);
 			Children.Add (WidgetCount,
 				xConstraint: Constraint.RelativeToParent (p => (p.Width - getWidgetCountWidth (p)) / 2),
-			yConstraint: Device.OnPlatform (
+			    yConstraint: Device.OnPlatform (
 				Constraint.RelativeToView (WidgetTitle, (p, v) => v.Y + 20),
 				Constraint.RelativeToView (WidgetTitle, (p, v) => v.Y + 10),
-				Constraint.RelativeToView (WidgetTitle, (p, v) => v.Y + 10)
+				Constraint.RelativeToView (WidgetTitle, (p, v) => v.Y + 20)
 			   )
 			);
 			BackgroundColor = AppColors.LightGray;

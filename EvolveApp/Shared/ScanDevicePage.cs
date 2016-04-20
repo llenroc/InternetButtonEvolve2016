@@ -32,7 +32,7 @@ namespace EvolveApp
 			};
 			var subtitleLabel = new StyledLabel { Text = "Take Control!", CssStyle = "h2" };
 			var descriptionLabel = new StyledLabel { Text = "Just scan the QR barcode of any device to take control.", CssStyle = "body" };
-			var indicator = new ActivityIndicator();
+            var indicator = new ActivityIndicator();
 			var scanBarcodeButton = new StyledButton
 			{
 				Text = "START SCANNING",
@@ -111,8 +111,16 @@ namespace EvolveApp
                 await Navigation.PushModalAsync(scanPage);
             };
 
-			indicator.SetBinding(ActivityIndicator.IsRunningProperty, "IsBusy");
-			scanBarcodeButton.SetBinding(Button.IsEnabledProperty, "ButtonLock");
-		}
-	}
+            indicator.SetBinding(ActivityIndicator.IsRunningProperty, "IsBusy");
+            if (Device.OS != TargetPlatform.iOS && Device.OS != TargetPlatform.Android)
+                indicator.SetBinding(ActivityIndicator.IsVisibleProperty, "IsBusy");
+
+#if __IOS__
+            scanBarcodeButton.SetBinding(Button.IsEnabledProperty, "ButtonLock");
+#endif
+#if __ANDROID__
+            scanBarcodeButton.SetBinding(Button.IsEnabledProperty, "ButtonLock");
+#endif
+        }
+    }
 }
