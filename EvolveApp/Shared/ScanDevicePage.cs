@@ -35,6 +35,7 @@ namespace EvolveApp
 			var indicator = new ActivityIndicator();
 			var scanBarcodeButton = new StyledButton
 			{
+				StyleId = "scanDeviceButton",
 				Text = "START SCANNING",
 				CssStyle = "button",
 				BackgroundColor = AppColors.Blue,
@@ -91,15 +92,14 @@ namespace EvolveApp
 					{
 						await Navigation.PopModalAsync();
 
-						//var isValidDevice = InternetButtonHelper.CheckDeviceId(result.Text);
-						//if (isValidDevice)
-						//{
-						//await viewModel.GetDevice(result.Text);
-						await viewModel.GetDevice(InternetButtonHelper.Olive);
-						await Navigation.PushAsync(new DeviceLandingPage(viewModel.Device));
-						//}
-						//else
-						//	DisplayAlert("Error", "The barcode scanner had an error. Please try scanning the barcode again", "Ok");
+						var isValidDevice = InternetButtonHelper.CheckDeviceId(result.Text);
+						if (isValidDevice)
+						{
+							await viewModel.GetDevice(result.Text);
+							await Navigation.PushAsync(new DeviceLandingPage(viewModel.Device));
+						}
+						else
+							DisplayAlert("Error", "The barcode scanner had an error. Please try scanning the barcode again", "Ok");
 
 						viewModel.ClearLock();
 					});
@@ -110,7 +110,20 @@ namespace EvolveApp
 
 			indicator.SetBinding(ActivityIndicator.IsRunningProperty, "IsBusy");
 			scanBarcodeButton.SetBinding(Button.IsEnabledProperty, "ButtonLock");
+
+#if DEBUG
+			App.XTCBackDoor = this;
+#endif
 		}
+
+#if DEBUG
+		public async Task BackDoor()
+		{
+			var page = sender as ScanDevicePage;
+			var device = await ParticleCloud.SharedInstance.GetDeviceAsync(InternetButtonHelper.Olive);
+			await page.Navigation.PushAsync(new DeviceLandingPage(device));
+		}
+#endif
 
 		protected override bool OnBackButtonPressed()
 		{

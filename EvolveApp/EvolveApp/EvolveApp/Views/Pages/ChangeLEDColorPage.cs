@@ -28,18 +28,17 @@ namespace EvolveApp
 
 			indicator = new ActivityIndicator { HeightRequest = Device.OnPlatform(50, 30, 50) };
 
-
-
 			var colorPreview = new BoxView
 			{
 				HeightRequest = 100
 			};
 
-			redSlider = new Slider { Minimum = 0, Maximum = 255, Value = 0 };
-			greenSlider = new Slider { Minimum = 0, Maximum = 255, Value = 0 };
-			blueSlider = new Slider { Minimum = 0, Maximum = 255, Value = 0 };
+			redSlider = new Slider { StyleId = "redSlider", Minimum = 0, Maximum = 255, Value = 0 };
+			greenSlider = new Slider { StyleId = "greenSlider", Minimum = 0, Maximum = 255, Value = 0 };
+			blueSlider = new Slider { StyleId = "blueSlider", Minimum = 0, Maximum = 255, Value = 0 };
 			push = new StyledButton
 			{
+				StyleId = "pushRGBvalueButton",
 				Text = "PUSH TO PHOTON",
 				BackgroundColor = AppColors.Blue,
 				CssStyle = "button",
@@ -49,6 +48,7 @@ namespace EvolveApp
 			};
 			lightShow = new StyledButton
 			{
+				StyleId = "startLightShowButton",
 				Text = "START A LIGHT SHOW",
 				BackgroundColor = AppColors.Green,
 				CssStyle = "button",

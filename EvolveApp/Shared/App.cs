@@ -18,6 +18,10 @@ namespace EvolveApp
 		public DateTime Expiration = DateTime.Parse("07/11/2016");
 		public static string User = "michael.watson@xamarin.com";
 
+#if DEBUG
+		public static ScanDevicePage XTCBackDoor;
+#endif
+
 		public static string CSS
 		{
 			get

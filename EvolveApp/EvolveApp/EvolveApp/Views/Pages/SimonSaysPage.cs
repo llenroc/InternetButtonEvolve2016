@@ -19,10 +19,10 @@ namespace EvolveApp.Pages
 			BackgroundColor = AppColors.BackgroundColor;
 			Title = "Simon Says";
 
-			red = new Button { BackgroundColor = SimonSaysColors.Red, BorderRadius = 0 };
-			blue = new Button { BackgroundColor = SimonSaysColors.Blue, BorderRadius = 0 };
-			green = new Button { BackgroundColor = SimonSaysColors.Green, BorderRadius = 0 };
-			yellow = new Button { BackgroundColor = SimonSaysColors.Yellow, BorderRadius = 0 };
+			red = new Button { StyleId = "red", BackgroundColor = SimonSaysColors.Red, BorderRadius = 0 };
+			blue = new Button { StyleId = "blue", BackgroundColor = SimonSaysColors.Blue, BorderRadius = 0 };
+			green = new Button { StyleId = "green", BackgroundColor = SimonSaysColors.Green, BorderRadius = 0 };
+			yellow = new Button { StyleId = "yellow", BackgroundColor = SimonSaysColors.Yellow, BorderRadius = 0 };
 
 			l1 = new ContentView { HorizontalOptions = LayoutOptions.FillAndExpand };
 			l2 = new ContentView { HorizontalOptions = LayoutOptions.FillAndExpand };
@@ -46,6 +46,7 @@ namespace EvolveApp.Pages
 
 			var clearSubmission = new Button
 			{
+				StyleId = "clearMoveButton",
 				Text = "X",
 				FontSize = Device.OnPlatform(10, 8, 10),
 				TextColor = Color.Black,
@@ -55,7 +56,7 @@ namespace EvolveApp.Pages
 				BorderColor = Color.Black,
 				BorderWidth = 1
 			};
-			StyledButton actionButton = new StyledButton { BorderRadius = 0, TextColor = Color.White, CssStyle = "button", BorderColor = AppColors.Blue };
+			StyledButton actionButton = new StyledButton { StyleId = "actionButton", BorderRadius = 0, TextColor = Color.White, CssStyle = "button", BorderColor = AppColors.Blue };
 
 			var layout = new RelativeLayout();
 
