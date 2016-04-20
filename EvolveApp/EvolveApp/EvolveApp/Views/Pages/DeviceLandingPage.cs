@@ -5,6 +5,7 @@ using Particle;
 using EvolveApp.ViewModels;
 using EvolveApp.Views.Controls;
 using EvolveApp.Pages;
+using EvolveApp.Helpers;
 
 namespace EvolveApp.Views.Pages
 {
@@ -36,6 +37,7 @@ namespace EvolveApp.Views.Pages
 			var appDescription = new StyledLabel { CssStyle = "body" };
 			var interactButton = new StyledButton
 			{
+				StyleId = "startInteractionButton",
 				Text = "START INTERACTION",
 				BackgroundColor = AppColors.Green,
 				CssStyle = "button",
@@ -45,6 +47,7 @@ namespace EvolveApp.Views.Pages
 			};
 			var flashButton = new StyledButton
 			{
+				StyleId = "flashBinaryButton",
 				Text = "FLASH NEW APP",
 				BackgroundColor = AppColors.Purple,
 				CssStyle = "button",

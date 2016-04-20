@@ -26,10 +26,15 @@ namespace EvolveApp.Droid
 
 			base.OnCreate(bundle);
 
-			// Initialise the TextStyle Class
-			TextStyle.Instance.AddFont("SegoeUI-Regular", "SegoeUIRegular.ttf");
-			TextStyle.Instance.AddFont("SegoeUI-Light", "SegoeUILight.ttf");
-			TextStyle.Instance.SetCSS(App.CSS);
+			var textCheck = TextStyle.Instance.GetFont("SegoeUI-Regular");
+
+			if (textCheck == null)
+			{
+				// Initialise the TextStyle Class
+				TextStyle.Instance.AddFont("SegoeUI-Regular", "SegoeUIRegular.ttf");
+				TextStyle.Instance.AddFont("SegoeUI-Light", "SegoeUILight.ttf");
+				TextStyle.Instance.SetCSS(App.CSS);
+			}
 
 			global::Xamarin.Forms.Forms.Init(this, bundle);
 			ZXing.Net.Mobile.Forms.Android.Platform.Init();
