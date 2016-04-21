@@ -30,12 +30,12 @@ namespace EvolveApp.ViewModels
 			{
 				var success = variables.TryGetValue("currentApp", out currentApp);
 
-                if (success && currentApp != "string")
-                {
-                    System.Diagnostics.Debug.WriteLine("Connected");
-                    return $"CURRENT APP: {currentApp.ToUpper()}";
-                }
-                System.Diagnostics.Debug.WriteLine("Disconnected");
+				if (success && currentApp != "string")
+				{
+					System.Diagnostics.Debug.WriteLine("Connected");
+					return $"CURRENT APP: {currentApp.ToUpper()}";
+				}
+				System.Diagnostics.Debug.WriteLine("Disconnected");
 				return "CURRENT APP: DISCONNECTED";
 			}
 		}
@@ -85,6 +85,19 @@ namespace EvolveApp.ViewModels
 			}
 		}
 
+		//Command unclaimDeviceCommand;
+		//public Command UnclaimDeviceCommand
+		//{
+		//	get
+		//	{
+		//		return unclaimDeviceCommand ?? (unclaimDeviceCommand = new Command(async () => await UnclaimDeviceAsync()));
+		//	}
+		//}
+
+		//public async Task UnclaimDeviceAsync()
+		//{
+		//	await Device.UnclaimAsync();
+		//}
 
 		public bool InteractButtonLock
 		{
@@ -147,7 +160,7 @@ namespace EvolveApp.ViewModels
 			OnPropertyChanged("DeviceConnected");
 			OnPropertyChanged("AppDescription");
 
-            if (Device.Connected)
+			if (Device.Connected)
 			{
 				System.Diagnostics.Debug.WriteLine("Device verified Connected");
 				SetLock(false);

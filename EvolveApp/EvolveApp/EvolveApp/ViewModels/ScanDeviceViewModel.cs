@@ -11,7 +11,11 @@ namespace EvolveApp.ViewModels
 		{
 			IsBusy = true;
 
-			Device = await ParticleCloud.SharedInstance.GetDeviceAsync(id);
+			//Device = await ParticleCloud.SharedInstance.GetDeviceAsync(id);
+
+			var success = await ParticleCloud.SharedInstance.ClaimDeviceAsync(id);
+			if (success)
+				Device = await ParticleCloud.SharedInstance.GetDeviceAsync(id);
 
 			IsBusy = false;
 		}

@@ -32,7 +32,7 @@ namespace EvolveApp
 #if __ANDROID__
 				var stream = assembly.GetManifestResourceStream("EvolveApp.Droid.Style.css");
 
-                string css = "";
+				string css = "";
 
 				using (var reader = new System.IO.StreamReader(stream))
 				{
@@ -43,36 +43,41 @@ namespace EvolveApp
 #endif
 
 #if __IOS__
-                var stream = assembly.GetManifestResourceStream("EvolveApp.iOS.Style.css");
+				var stream = assembly.GetManifestResourceStream("EvolveApp.iOS.Style.css");
 
-                string css = "";
+				string css = "";
 
-                using (var reader = new System.IO.StreamReader(stream))
-                {
-                    css = reader.ReadToEnd();
-                }
+				using (var reader = new System.IO.StreamReader(stream))
+				{
+					css = reader.ReadToEnd();
+				}
 
-                return css;
+				return css;
 #endif
-                return "";
-            }
+				return "";
+			}
 		}
 
 		public App()
 		{
-			var navPage = new NavigationPage(new ScanDevicePage());
+			var page = new ScanDevicePage();
+			NavigationPage.SetHasNavigationBar(page, false);
+			var navPage = new NavigationPage(page);
+
+			MainPage = navPage;
+
 #if __IOS__
 			navPage.BarBackgroundColor = AppColors.Blue;
 			navPage.BarTextColor = Color.White;
 #endif
 			// The root page of your application
-			MainPage = navPage;
+			//MainPage = navPage;
 		}
 
 		protected override void OnStart()
 		{
 			// Handle when your app starts
-			ParticleCloud.AccessToken = new ParticleAccessToken(Token, RefreshToken, Expiration);
+			//ParticleCloud.AccessToken = new ParticleAccessToken(Token, RefreshToken, Expiration);
 		}
 
 		protected override void OnSleep()
@@ -83,7 +88,7 @@ namespace EvolveApp
 		protected override void OnResume()
 		{
 			// Handle when your app resumes
-			ParticleCloud.AccessToken = new ParticleAccessToken(Token, RefreshToken, Expiration);
+			//ParticleCloud.AccessToken = new ParticleAccessToken(Token, RefreshToken, Expiration);
 		}
 	}
 }

@@ -6,26 +6,20 @@ using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
-[assembly: ExportRenderer (typeof (StyledButton), typeof (EvolveApp.iOS.StyledButtonRenderer))]
+[assembly: ExportRenderer(typeof(StyledButton), typeof(EvolveApp.iOS.StyledButtonRenderer))]
 namespace EvolveApp.iOS
 {
 	public class StyledButtonRenderer : ButtonRenderer
 	{
-		StyledButton _styledElement;
-
-		public StyledButtonRenderer ()
+		protected override void OnElementChanged(ElementChangedEventArgs<Xamarin.Forms.Button> e)
 		{
-		}
+			base.OnElementChanged(e);
 
-		protected override void OnElementChanged (ElementChangedEventArgs<Xamarin.Forms.Button> e)
-		{
-			base.OnElementChanged (e);
+			if (e.NewElement != null)
+			{
+				var _styledElement = e.NewElement as StyledButton;
 
-			_styledElement = Element as StyledButton;
-			var cssStyle = _styledElement.CssStyle;
-
-			if (Control != null) {
-				TextStyle.Style<UILabel> (Control.TitleLabel, cssStyle);
+				TextStyle.Style<UILabel>(Control.TitleLabel, _styledElement.CssStyle);
 			}
 		}
 	}

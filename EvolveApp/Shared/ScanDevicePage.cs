@@ -92,10 +92,17 @@ namespace EvolveApp
 						await Navigation.PopModalAsync();
 						System.Diagnostics.Debug.WriteLine($"Result: {result.Text}");
 						var isValidDevice = InternetButtonHelper.CheckDeviceId(result.Text);
+						System.Diagnostics.Debug.WriteLine($"{isValidDevice}");
+
 						if (isValidDevice)
 						{
 							await viewModel.GetDevice(result.Text);
-							await Navigation.PushAsync(new DeviceLandingPage(viewModel.Device));
+							var navPage = new NavigationPage(new DeviceLandingPage(viewModel.Device));
+#if __IOS__
+							navPage.BarBackgroundColor = AppColors.Blue;
+							navPage.BarTextColor = Color.White;
+#endif
+							await Navigation.PushModalAsync(navPage);
 						}
 						else
 							DisplayAlert("Error", "The barcode scanner had an error. Please try scanning the barcode again", "Ok");
@@ -104,10 +111,10 @@ namespace EvolveApp
 					});
 				};
 
-                await Navigation.PushModalAsync(scanPage);
-                //await viewModel.GetDevice(InternetButtonHelper.Whiskey);
-                //await Navigation.PushAsync(new DeviceLandingPage(viewModel.Device));
-            };
+				await Navigation.PushModalAsync(scanPage);
+				//await viewModel.GetDevice(InternetButtonHelper.Whiskey);
+				//await Navigation.PushAsync(new DeviceLandingPage(viewModel.Device));
+			};
 
 			indicator.SetBinding(ActivityIndicator.IsRunningProperty, "IsBusy");
 			if (Device.OS != TargetPlatform.iOS && Device.OS != TargetPlatform.Android)
@@ -119,6 +126,25 @@ namespace EvolveApp
 #if __ANDROID__
 			scanBarcodeButton.SetBinding(Button.IsEnabledProperty, "ButtonLock");
 #endif
+		}
+
+		protected override void OnAppearing()
+		{
+			base.OnAppearing();
+
+			if (ParticleCloud.AccessToken == null)
+			{
+				var page = new LoginPage { LogoFileImageSource = "xamarin_logo.png" };
+				NavigationPage.SetHasNavigationBar(page, false);
+				var navPage = new NavigationPage(page);
+
+#if __IOS__
+				navPage.BarBackgroundColor = AppColors.Blue;
+				navPage.BarTextColor = Color.White;
+#endif
+
+				Navigation.PushModalAsync(navPage);
+			}
 		}
 	}
 }

@@ -7,13 +7,14 @@ namespace EvolveApp.Helpers
 		public static string Charlie = "28002b000347343233323032";
 		public static string Kirby = "3f0020000447343232363230";
 		public static string Whiskey = "20003f000547343232363230";
-		public static string Anarkali = "";
+		public static string Anarkali = "35002e001747343338333633";
+		public static string Snow = "2c002c000447343233323032";
+		public static string Gizmo = "36002d000447343233323032";
+		public static string Fempto = "280021000d47343233323032";
 
 		public static bool CheckDeviceId(string id)
 		{
-            var checkForRandomChars = id.IndexOf('/');
-
-			if (id == Olive || id == Charlie || id == Kirby || id == Whiskey || id == Anarkali)
+			if (id == Olive || id == Charlie || id == Kirby || id == Whiskey || id == Anarkali || id == Snow || id == Gizmo || id == Fempto)
 				return true;
 			return false;
 		}

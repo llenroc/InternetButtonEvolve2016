@@ -99,6 +99,7 @@
     <Compile Include="Encryptor.cs" />
     <Compile Include="StyledLabelRenderer.cs" />
     <Compile Include="StyledButtonRenderer.cs" />
+    <Compile Include="LoginEntryRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Default-568h%402x.png" />
@@ -124,6 +125,12 @@
     <BundleResource Include="Resources\ic_cached_white_24dp%403x.png" />
     <BundleResource Include="Resources\ic_cached_white_24dp.png" />
     <BundleResource Include="Resources\SegoeUIBold.ttf" />
+    <BundleResource Include="Resources\xamarin_logo%401x.png" />
+    <BundleResource Include="Resources\xamarin_logo%402x.png" />
+    <BundleResource Include="Resources\xamarin_logo%403x.png" />
+    <BundleResource Include="Resources\ic_clear_white_2x.png" />
+    <BundleResource Include="Resources\ic_clear_white_3x.png" />
+    <BundleResource Include="Resources\ic_clear_white.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -189,6 +196,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Style.css" />
+    <EmbeddedResource Include="Resources\Fonts\SegoeUIBold.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\Fonts\" />
   </ItemGroup>
   <Import Project="..\..\Shared\Shared.projitems" Label="Shared" Condition="Exists('..\..\Shared\Shared.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

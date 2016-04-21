@@ -53,6 +53,12 @@
     <Compile Include="Helpers\AppSettings.cs" />
     <Compile Include="Models\SimonSaysColors.cs" />
     <Compile Include="Helpers\InternetButtonHelper.cs" />
+    <Compile Include="Views\Pages\ReusableLoginPage.cs" />
+    <Compile Include="Views\Controls\LoginEntry.cs" />
+    <Compile Include="Views\Controls\LoginButton.cs" />
+    <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="Views\Pages\NewUserSignUpPage.cs" />
+    <Compile Include="ViewModels\NewUserSignUpViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">

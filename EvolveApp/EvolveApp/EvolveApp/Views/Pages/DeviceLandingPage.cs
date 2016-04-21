@@ -5,7 +5,6 @@ using Particle;
 using EvolveApp.ViewModels;
 using EvolveApp.Views.Controls;
 using EvolveApp.Pages;
-using EvolveApp.Helpers;
 
 namespace EvolveApp.Views.Pages
 {
@@ -21,6 +20,7 @@ namespace EvolveApp.Views.Pages
 			BindingContext = ViewModel;
 
 			var refreshDevice = new ToolbarItem { Icon = "ic_cached_white_24dp.png" };
+			var back = new ToolbarItem { Icon = "ic_clear_white.png" };
 			var layout = new RelativeLayout();
 
 			var indicator = new ActivityIndicator();
@@ -37,7 +37,7 @@ namespace EvolveApp.Views.Pages
 				BackgroundColor = AppColors.Green,
 				CssStyle = "button",
 				BorderRadius = 0,
-				HeightRequest = 50,
+				HeightRequest = AppSettings.ButtonHeight,
 				IsEnabled = false
 			};
 			var flashButton = new StyledButton
@@ -47,7 +47,7 @@ namespace EvolveApp.Views.Pages
 				BackgroundColor = AppColors.Purple,
 				CssStyle = "button",
 				BorderRadius = 0,
-				HeightRequest = 50,
+				HeightRequest = AppSettings.ButtonHeight,
 				IsEnabled = false
 			};
 
@@ -116,6 +116,7 @@ namespace EvolveApp.Views.Pages
 
 			Content = layout;
 			ToolbarItems.Add(refreshDevice);
+			ToolbarItems.Add(back);
 
 			indicator.SetBinding(ActivityIndicator.IsRunningProperty, "IsBusy");
 			if (Device.OS != TargetPlatform.iOS && Device.OS != TargetPlatform.Android)
@@ -150,9 +151,15 @@ namespace EvolveApp.Views.Pages
 					if (!success)
 					{
 						await DisplayAlert("Error", "The Device connection timed out after 30 seconds. Please re-scan the barcode once the device breaths a solid cyan light", "Ok");
-						await Navigation.PopAsync();
 					}
 				}
+			};
+
+			back.Clicked += async (object sender, EventArgs e) =>
+			{
+				var success = await ViewModel.Device.UnclaimAsync();
+				if (success)
+					Navigation.PopModalAsync(true);
 			};
 		}
 

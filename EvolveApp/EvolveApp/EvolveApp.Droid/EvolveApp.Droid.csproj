@@ -157,6 +157,10 @@
     <AndroidResource Include="Resources\drawable-xhdpi\ic_cached_white_24dp.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_cached_white_24dp.png" />
     <AndroidResource Include="Resources\layout\splash.axml" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_clear_white.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_clear_white.png" />
+    <AndroidResource Include="Resources\drawable\ic_clear_white.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_clear_white.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\AndroidManifest.xml" />
