@@ -60,7 +60,8 @@ namespace EvolveApp.UWP
 
         public void SetHeading2Font()
         {
-            uwpElement.FontWeight = FontWeights.Light;
+            uwpElement.FontFamily = new FontFamily("Segoe UI");
+            uwpElement.FontWeight = FontWeights.ExtraLight;
             formsElement.FontSize = 20;
             formsElement.TextColor = Color.FromHex("#07add0");
             var oldText = formsElement.Text;

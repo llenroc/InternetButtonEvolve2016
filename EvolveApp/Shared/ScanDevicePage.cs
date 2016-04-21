@@ -86,15 +86,15 @@ namespace EvolveApp
 
                 var scanPage = new ZXingScannerPage();
 
-                scanPage.OnScanResult += async (result) =>
+                scanPage.OnScanResult += (result) =>
                 {
                     scanPage.IsScanning = false;
 
                     Device.BeginInvokeOnMainThread(async () =>
                     {
                         await Navigation.PopModalAsync();
-
-                    var isValidDevice = InternetButtonHelper.CheckDeviceId(result.Text);
+                        System.Diagnostics.Debug.WriteLine($"Result: {result.Text}");
+                        var isValidDevice = InternetButtonHelper.CheckDeviceId(result.Text);
                         if (isValidDevice)
                         {
                         await viewModel.GetDevice(result.Text);

@@ -11,6 +11,8 @@ namespace EvolveApp.Helpers
 
 		public static bool CheckDeviceId(string id)
 		{
+            var checkForRandomChars = id.IndexOf('/');
+
 			if (id == Olive || id == Charlie || id == Kirby || id == Whiskey || id == Anarkali)
 				return true;
 			return false;

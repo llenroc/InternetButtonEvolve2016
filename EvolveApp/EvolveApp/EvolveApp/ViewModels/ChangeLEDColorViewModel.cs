@@ -148,7 +148,7 @@ namespace EvolveApp.ViewModels
 			if (success == "1")
 				Reset();
 
-			IsBusy = false;
+            IsBusy = false;
 		}
 
 		async Task PushColorToPhotonAsync()
