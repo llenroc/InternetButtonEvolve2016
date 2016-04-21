@@ -119,6 +119,12 @@
     <Reference Include="Xamarin.Forms.Platform">
       <HintPath>..\..\packages\Xamarin.Forms.2.1.0.6529\lib\MonoAndroid10\Xamarin.Forms.Platform.dll</HintPath>
     </Reference>
+    <Reference Include="Toasts.Forms.Plugin.Abstractions">
+      <HintPath>..\..\packages\Toasts.Forms.Plugin.2.0.3\lib\MonoAndroid10\Toasts.Forms.Plugin.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Toasts.Forms.Plugin.Droid">
+      <HintPath>..\..\packages\Toasts.Forms.Plugin.2.0.3\lib\MonoAndroid10\Toasts.Forms.Plugin.Droid.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainActivity.cs" />
@@ -126,6 +132,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StyledButtonRenderer.cs" />
     <Compile Include="StyledLabelRenderer.cs" />
+    <Compile Include="FixNavBar.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

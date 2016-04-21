@@ -17,7 +17,7 @@ namespace EvolveApp.Pages
 			ViewModel = new SimonSaysViewModel(device);
 			BindingContext = ViewModel;
 			BackgroundColor = AppColors.BackgroundColor;
-			Title = "Simon Says";
+			Title = $"{device.Name} Says";
 
 			red = new Button { StyleId = "red", BackgroundColor = SimonSaysColors.Red, BorderRadius = 0 };
 			blue = new Button { StyleId = "blue", BackgroundColor = SimonSaysColors.Blue, BorderRadius = 0 };

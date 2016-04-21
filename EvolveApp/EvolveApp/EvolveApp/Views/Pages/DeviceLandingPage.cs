@@ -24,7 +24,6 @@ namespace EvolveApp.Views.Pages
 			ViewModel = new DeviceLandingPageViewModel(device);
 			BindingContext = ViewModel;
 
-
 			var refreshDevice = new ToolbarItem { Icon = "ic_cached_white_24dp.png" };
 			var layout = new RelativeLayout();
 
@@ -110,10 +109,10 @@ namespace EvolveApp.Views.Pages
 				heightConstraint: Constraint.Constant(AppSettings.ButtonHeight)
 			);
 			layout.Children.Add(indicator,
-				xConstraint: Constraint.RelativeToParent(p => p.Width / 4),
-				yConstraint: Constraint.RelativeToParent(p => p.Width / 4),
-				widthConstraint: Constraint.RelativeToParent(p => p.Width / 2),
-				heightConstraint: Constraint.RelativeToParent(p => p.Width / 2)
+				xConstraint: Constraint.Constant(AppSettings.Margin),
+				yConstraint: Constraint.RelativeToView(functionWidget, (p, v) => v.Y + v.Height + 10),
+				widthConstraint: Constraint.RelativeToParent(p => p.Width - AppSettings.Margin * 2),
+				heightConstraint: Constraint.RelativeToView(functionWidget, (p, v) => p.Height - v.Y - v.Height - 10 - AppSettings.Margin - 2 * AppSettings.ButtonHeight - 20)
 			);
 
 			variableWidget.WidgetTitle.Text = "Variables";
@@ -129,8 +128,8 @@ namespace EvolveApp.Views.Pages
 			ToolbarItems.Add(refreshDevice);
 
 			indicator.SetBinding(ActivityIndicator.IsRunningProperty, "IsBusy");
-            if (Device.OS != TargetPlatform.iOS && Device.OS != TargetPlatform.Android)
-                indicator.SetBinding(ActivityIndicator.IsVisibleProperty, "IsBusy");
+			if (Device.OS != TargetPlatform.iOS && Device.OS != TargetPlatform.Android)
+				indicator.SetBinding(ActivityIndicator.IsVisibleProperty, "IsBusy");
 
 			deviceName.SetBinding(Label.TextProperty, "Device.Name");
 			currentAppLabel.SetBinding(Label.TextProperty, "CurrentApp");

@@ -8,6 +8,7 @@ using UIKit;
 using TextStyles.iOS;
 using Xamarin.Forms;
 using System.Threading.Tasks;
+using Plugin.Toasts;
 
 namespace EvolveApp.iOS
 {
@@ -38,6 +39,9 @@ namespace EvolveApp.iOS
 					e.NativeView.AccessibilityIdentifier = e.View.StyleId;
 			};
 
+			DependencyService.Register<ToastNotificatorImplementation>(); // Register your dependency
+			ToastNotificatorImplementation.Init();
+
 			formsApp = new App();
 			LoadApplication(formsApp);
 
@@ -66,7 +70,7 @@ namespace EvolveApp.iOS
 		public NSString SkipScanner(NSString reportName)
 		{
 
-			Task.Run(async () => { await App.XTCBackDoor.BackDoor()}).Wait();
+			//Task.Run(async () => { await App.XTCBackDoor.BackDoor()}).Wait();
 
 			return new NSString();
 		}

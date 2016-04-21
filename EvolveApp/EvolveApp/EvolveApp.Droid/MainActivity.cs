@@ -7,6 +7,8 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 using TextStyles.Android;
+using Xamarin.Forms;
+using Plugin.Toasts;
 
 namespace EvolveApp.Droid
 {
@@ -38,6 +40,8 @@ namespace EvolveApp.Droid
 
 			global::Xamarin.Forms.Forms.Init(this, bundle);
 			ZXing.Net.Mobile.Forms.Android.Platform.Init();
+			DependencyService.Register<ToastNotificatorImplementation>(); // Register your dependency
+			ToastNotificatorImplementation.Init(this, new FixNavBar());
 
 			LoadApplication(new App());
 		}

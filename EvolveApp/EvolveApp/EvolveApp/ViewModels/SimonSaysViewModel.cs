@@ -6,6 +6,7 @@ using Particle.Helpers;
 using Xamarin.Forms;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using Plugin.Toasts;
 
 namespace EvolveApp.ViewModels
 {
@@ -17,13 +18,15 @@ namespace EvolveApp.ViewModels
 		public string simonMoves;
 		bool buttonLock;
 
-		public SimonSaysViewModel (ParticleDevice device)
+		public SimonSaysViewModel(ParticleDevice device)
 		{
 			InternetButton = device;
 		}
 
-		public bool ShowClearButton {
-			get {
+		public bool ShowClearButton
+		{
+			get
+			{
 				if (L1 == Color.Transparent) return false;
 				return true;
 			}
@@ -42,94 +45,114 @@ namespace EvolveApp.ViewModels
 		Color l9color = SimonSaysColors.Grey;
 		Color l10color = SimonSaysColors.Grey;
 
-		public Color L1 {
+		public Color L1
+		{
 			get { return l1color; }
-			set {
+			set
+			{
 				if (l1color == value)
 					return;
 				l1color = value;
-				OnPropertyChanged ("L1");
+				OnPropertyChanged("L1");
 			}
 		}
-		public Color L2 {
+		public Color L2
+		{
 			get { return l2color; }
-			set {
+			set
+			{
 				if (l2color == value)
 					return;
 				l2color = value;
-				OnPropertyChanged ("L2");
+				OnPropertyChanged("L2");
 			}
 		}
-		public Color L3 {
+		public Color L3
+		{
 			get { return l3color; }
-			set {
+			set
+			{
 				if (l3color == value)
 					return;
 				l3color = value;
-				OnPropertyChanged ("L3");
+				OnPropertyChanged("L3");
 			}
 		}
-		public Color L4 {
+		public Color L4
+		{
 			get { return l4color; }
-			set {
+			set
+			{
 				if (l4color == value)
 					return;
 				l4color = value;
-				OnPropertyChanged ("L4");
+				OnPropertyChanged("L4");
 			}
 		}
-		public Color L5 {
+		public Color L5
+		{
 			get { return l5color; }
-			set {
+			set
+			{
 				if (l5color == value)
 					return;
 				l5color = value;
-				OnPropertyChanged ("L5");
+				OnPropertyChanged("L5");
 			}
 		}
-		public Color L6 {
+		public Color L6
+		{
 			get { return l6color; }
-			set {
+			set
+			{
 				if (l6color == value)
 					return;
 				l6color = value;
-				OnPropertyChanged ("L6");
+				OnPropertyChanged("L6");
 			}
 		}
-		public Color L7 {
+		public Color L7
+		{
 			get { return l7color; }
-			set {
+			set
+			{
 				if (l7color == value)
 					return;
 				l7color = value;
-				OnPropertyChanged ("L7");
+				OnPropertyChanged("L7");
 			}
 		}
-		public Color L8 {
+		public Color L8
+		{
 			get { return l8color; }
-			set {
+			set
+			{
 				if (l8color == value)
 					return;
 				l8color = value;
-				OnPropertyChanged ("L8");
+				OnPropertyChanged("L8");
 			}
 		}
-		public Color L9 {
+		public Color L9
+		{
 			get { return l9color; }
-			set {
+			set
+			{
 				if (l9color == value)
 					return;
 				l9color = value;
-				OnPropertyChanged ("L9");
+				OnPropertyChanged("L9");
 			}
 		}
-		public Color L10 {
+		public Color L10
+		{
 			get { return l10color; }
-			set {
+			set
+			{
 				if (l10color == value)
 					return;
 				l10color = value;
-				OnPropertyChanged ("L10");
+				OnPropertyChanged("L10");
 			}
 		}
 
@@ -138,43 +161,65 @@ namespace EvolveApp.ViewModels
 		#region ActionButtion Implementation 
 
 		private Command actionCommand;
-		public Command ActionCommand {
-			get {
-				return actionCommand ?? (actionCommand = new Command (async () => await PerformAction ()));
+		public Command ActionCommand
+		{
+			get
+			{
+				return actionCommand ?? (actionCommand = new Command(async () => await PerformAction()));
 			}
 		}
 
-		public string ActionText {
-			get {
-				if (gameRunning) return "Submit Move".ToUpper ();
-				return "Start Game".ToUpper ();
+		public string ActionText
+		{
+			get
+			{
+				if (gameRunning) return "Submit Move".ToUpper();
+				return "Start Game".ToUpper();
 			}
 		}
 
-		public Color ActionColor {
-			get {
+		public Color ActionColor
+		{
+			get
+			{
 				if (gameRunning) return AppColors.Blue;
 				return AppColors.Green;
 			}
 		}
 
-		async Task PerformAction ()
+		async Task PerformAction()
 		{
-			if (!gameRunning) {
+			if (!gameRunning)
+			{
 				//Start game
 				gameRunning = true;
-				OnPropertyChanged ("ActionText");
-				OnPropertyChanged ("ActionColor");
-				await StartGame ();
-			} else {
-				var result = await InternetButton.CallFunctionAsync ("buttonPress", playerEntry);
+				OnPropertyChanged("ActionText");
+				OnPropertyChanged("ActionColor");
+				await StartGame();
+			}
+			else {
+				var result = await InternetButton.CallFunctionAsync("buttonPress", playerEntry);
 
-				//if (result == "1")
-				//{
-				//	await ParticleCloud.SharedInstance.PublishEventWithNameAsync("SimonSays", $"{{ \"g\":\"{ gameId }\",\"a\":\"correctmove\", \"u\":\"{ App.User }\",\"v\":\"{ playerEntry }\" }}", true, 60);
-				//}
+				if (result == "1")
+				{
+					Device.BeginInvokeOnMainThread(() =>
+					{
+						var notificator = DependencyService.Get<IToastNotificator>();
+						notificator.Notify(ToastNotificationType.Success,
+							$"{InternetButton.Name} Says:", "You got that one right....", TimeSpan.FromSeconds(2));
+					});
+				}
+				else if (result == "-1")
+				{
+					Device.BeginInvokeOnMainThread(() =>
+					{
+						var notificator = DependencyService.Get<IToastNotificator>();
+						notificator.Notify(ToastNotificationType.Warning,
+							$"{InternetButton.Name} Says:", "Don't interrupt my masterpiece!!!", TimeSpan.FromSeconds(1));
+					});
+				}
 
-				ClearPlayerEntry ();
+				ClearPlayerEntry();
 			}
 		}
 
@@ -187,43 +232,55 @@ namespace EvolveApp.ViewModels
 		double blueOpacity = 1;
 		double yellowOpacity = 1;
 
-		public double RedOpacity {
-			get {
+		public double RedOpacity
+		{
+			get
+			{
 				return redOpacity;
 			}
-			set {
+			set
+			{
 				redOpacity = value;
-				OnPropertyChanged ("RedOpacity");
+				OnPropertyChanged("RedOpacity");
 			}
 		}
 
-		public double GreenOpacity {
-			get {
+		public double GreenOpacity
+		{
+			get
+			{
 				return greenOpacity;
 			}
-			set {
+			set
+			{
 				greenOpacity = value;
-				OnPropertyChanged ("GreenOpacity");
+				OnPropertyChanged("GreenOpacity");
 			}
 		}
 
-		public double BlueOpacity {
-			get {
+		public double BlueOpacity
+		{
+			get
+			{
 				return blueOpacity;
 			}
-			set {
+			set
+			{
 				blueOpacity = value;
-				OnPropertyChanged ("BlueOpacity");
+				OnPropertyChanged("BlueOpacity");
 			}
 		}
 
-		public double YellowOpacity {
-			get {
+		public double YellowOpacity
+		{
+			get
+			{
 				return yellowOpacity;
 			}
-			set {
+			set
+			{
 				yellowOpacity = value;
-				OnPropertyChanged ("YellowOpacity");
+				OnPropertyChanged("YellowOpacity");
 			}
 		}
 
@@ -231,7 +288,7 @@ namespace EvolveApp.ViewModels
 
 		#region Light Box Implementation
 
-		public void ClearPlayerEntry ()
+		public void ClearPlayerEntry()
 		{
 			playerEntry = "";
 			L1 = SimonSaysColors.Grey;
@@ -244,43 +301,44 @@ namespace EvolveApp.ViewModels
 			L8 = SimonSaysColors.Grey;
 			L9 = SimonSaysColors.Grey;
 			L10 = SimonSaysColors.Grey;
-			OnPropertyChanged ("ShowClearButton");
+			OnPropertyChanged("ShowClearButton");
 		}
 
-		void SetLightColor (Color color)
+		void SetLightColor(Color color)
 		{
-			switch (playerEntry.Length) {
-			case 1:
-				L1 = color;
-				OnPropertyChanged ("ShowClearButton");
-				break;
-			case 2:
-				L2 = color;
-				break;
-			case 3:
-				L3 = color;
-				break;
-			case 4:
-				L4 = color;
-				break;
-			case 5:
-				L5 = color;
-				break;
-			case 6:
-				L6 = color;
-				break;
-			case 7:
-				L7 = color;
-				break;
-			case 8:
-				L8 = color;
-				break;
-			case 9:
-				L9 = color;
-				break;
-			case 10:
-				L10 = color;
-				break;
+			switch (playerEntry.Length)
+			{
+				case 1:
+					L1 = color;
+					OnPropertyChanged("ShowClearButton");
+					break;
+				case 2:
+					L2 = color;
+					break;
+				case 3:
+					L3 = color;
+					break;
+				case 4:
+					L4 = color;
+					break;
+				case 5:
+					L5 = color;
+					break;
+				case 6:
+					L6 = color;
+					break;
+				case 7:
+					L7 = color;
+					break;
+				case 8:
+					L8 = color;
+					break;
+				case 9:
+					L9 = color;
+					break;
+				case 10:
+					L10 = color;
+					break;
 			}
 		}
 
@@ -291,47 +349,83 @@ namespace EvolveApp.ViewModels
 		Guid gameCheckGuid;
 		string gameId = "";
 
-		public async Task StartGame ()
+		public async Task StartGame()
 		{
 			playerEntry = "";
-			gameCheckGuid = await InternetButton.SubscribeToEventsWithPrefixAsync ("SimonSays", GameHandler);
-			await InternetButton.CallFunctionAsync ("startSimon");
+			gameCheckGuid = await InternetButton.SubscribeToEventsWithPrefixAsync("SimonSays", GameHandler);
+
+			Device.BeginInvokeOnMainThread(() =>
+				{
+					var notificator = DependencyService.Get<IToastNotificator>();
+					notificator.Notify(ToastNotificationType.Success,
+						$"{InternetButton.Name} Says:", "Better bring your A game!!", TimeSpan.FromSeconds(1));
+				});
+
+			var success = await InternetButton.CallFunctionAsync("startSimon");
+
+			if (success == "Timed out.")
+			{
+				Device.BeginInvokeOnMainThread(() =>
+				{
+					var notificator = DependencyService.Get<IToastNotificator>();
+					notificator.Notify(ToastNotificationType.Success,
+						$"{InternetButton.Name} Died", "But I'll come back to life!!", TimeSpan.FromSeconds(1));
+				});
+			}
 			gameRunning = true;
 
-			await Task.Delay (500);
+			await Task.Delay(500);
 
-			var simonParticle = await InternetButton.GetVariableAsync ("simon");
-			simonMoves = simonParticle.Result.ToString ();
+			var simonParticle = await InternetButton.GetVariableAsync("simon");
+			simonMoves = simonParticle.Result.ToString();
 
-			Random rand = new Random ();
-			for (var i = 0; i < 10; i++) {
-				gameId += rand.Next (0, 9);
+			Random rand = new Random();
+			for (var i = 0; i < 10; i++)
+			{
+				gameId += rand.Next(0, 9);
 			}
 
-			//await ParticleCloud.SharedInstance.PublishEventWithNameAsync("SimonSays", $"{{ \"g\":\"{ gameId }\",\"a\":\"startsimon\", \"u\":\"{ App.User }\",\"v\":\"mobile\" }}", true, 60);
-			System.Diagnostics.Debug.WriteLine (simonMoves);
 		}
 
-		public async Task Winner ()
+		public async Task Winner()
 		{
 			playerEntry = "Winner";
-			OnPropertyChanged ("DetailText");
+			Device.BeginInvokeOnMainThread(() =>
+			{
+				var notificator = DependencyService.Get<IToastNotificator>();
+				notificator.Notify(ToastNotificationType.Success,
+					"Winner", "You beat Simon!!", TimeSpan.FromSeconds(2));
+			});
 
-			await EndGame ();
+			OnPropertyChanged("DetailText");
+
+			await EndGame();
 		}
 
-		public async Task EndGame ()
+		public async Task Loser()
+		{
+			Device.BeginInvokeOnMainThread(() =>
+			{
+				var notificator = DependencyService.Get<IToastNotificator>();
+				notificator.Notify(ToastNotificationType.Error,
+					$"{InternetButton.Name} Says: ", "MWHUAHAHAHA I WIN!!", TimeSpan.FromSeconds(2));
+			});
+
+			await EndGame();
+		}
+
+		public async Task EndGame()
 		{
 			gameRunning = false;
 
-			ClearPlayerEntry ();
-			OnPropertyChanged ("ActionText");
-			OnPropertyChanged ("ActionColor");
-			await InternetButton.UnsubscribeToEventsWithIdAsync (gameCheckGuid);
+			ClearPlayerEntry();
+			OnPropertyChanged("ActionText");
+			OnPropertyChanged("ActionColor");
+			await InternetButton.UnsubscribeToEventsWithIdAsync(gameCheckGuid);
 			gameId = "";
 		}
 
-		public async Task PlayerPressButtonAsync (string color)
+		public async Task PlayerPressButtonAsync(string color)
 		{
 			if (buttonLock)
 				return;
@@ -339,70 +433,69 @@ namespace EvolveApp.ViewModels
 			buttonLock = true;
 
 			playerEntry += color;
-			OnPropertyChanged ("DetailText");
+			OnPropertyChanged("DetailText");
 
-			switch (color) {
-			case "r":
-				RedOpacity = 0.5;
-				break;
-			case "g":
-				GreenOpacity = 0.5;
-				break;
-			case "b":
-				BlueOpacity = 0.5;
-				break;
-			case "y":
-				YellowOpacity = 0.5;
-				break;
+			switch (color)
+			{
+				case "r":
+					RedOpacity = 0.5;
+					break;
+				case "g":
+					GreenOpacity = 0.5;
+					break;
+				case "b":
+					BlueOpacity = 0.5;
+					break;
+				case "y":
+					YellowOpacity = 0.5;
+					break;
 			}
 
-			await Task.Delay (250);
+			await Task.Delay(150);
 
 			Color colorToDisplay = Color.Transparent;
 
-			switch (color) {
-			case "r":
-				RedOpacity = 1;
-				colorToDisplay = SimonSaysColors.Red;
-				break;
-			case "g":
-				GreenOpacity = 1;
-				colorToDisplay = SimonSaysColors.Green;
-				break;
-			case "b":
-				BlueOpacity = 1;
-				colorToDisplay = SimonSaysColors.Blue;
-				break;
-			case "y":
-				YellowOpacity = 1;
-				colorToDisplay = SimonSaysColors.Yellow;
-				break;
+			switch (color)
+			{
+				case "r":
+					RedOpacity = 1;
+					colorToDisplay = SimonSaysColors.Red;
+					break;
+				case "g":
+					GreenOpacity = 1;
+					colorToDisplay = SimonSaysColors.Green;
+					break;
+				case "b":
+					BlueOpacity = 1;
+					colorToDisplay = SimonSaysColors.Blue;
+					break;
+				case "y":
+					YellowOpacity = 1;
+					colorToDisplay = SimonSaysColors.Yellow;
+					break;
 			}
 
-			SetLightColor (colorToDisplay);
+			SetLightColor(colorToDisplay);
 
 			buttonLock = false;
 		}
 
-		async void GameHandler (object sender, ParticleEventArgs e)
+		async void GameHandler(object sender, ParticleEventArgs e)
 		{
-			var data = JsonConvert.DeserializeObject<SimonSaysActivity> (e.EventData.Data);
+			var data = JsonConvert.DeserializeObject<SimonSaysActivity>(e.EventData.Data);
 
-			if (data.Activity == SimonSaysActivity.EndSimon) {
-				if (data.Value == "winner") {
-					await Winner ();
-					Xamarin.Forms.Device.BeginInvokeOnMainThread (() => {
-						Application.Current.MainPage.DisplayAlert ("Congrats!!", "You won!!", "OK");
-					});
-				} else {
-					await EndGame ();
-					Xamarin.Forms.Device.BeginInvokeOnMainThread (() => {
-						Application.Current.MainPage.DisplayAlert ("Oh No!!", "Things must be going down hill, you got the last one wrong", "OK");
-					});
+			if (data.Activity == SimonSaysActivity.EndSimon)
+			{
+				if (data.Value == "winner")
+				{
+					await Winner();
+				}
+				else {
+					await Loser();
 				}
 			}
 
-			System.Diagnostics.Debug.WriteLine ($"{e.EventData.Event}: {e.EventData.Data}\n{e.EventData.DeviceId}");
+			System.Diagnostics.Debug.WriteLine($"{e.EventData.Event}: {e.EventData.Data}\n{e.EventData.DeviceId}");
 		}
 
 		#endregion
