@@ -12,10 +12,6 @@ namespace EvolveApp.Views.Pages
 	public class DeviceLandingPage : ContentPage
 	{
 		DeviceLandingPageViewModel ViewModel;
-		//RelativeLayout layout;
-		//ActivityIndicator indicator;
-		//Image deviceConnected;
-		//DashboardWidget variableWidget, functionWidget;
 
 		public DeviceLandingPage(ParticleDevice device)
 		{
@@ -62,12 +58,6 @@ namespace EvolveApp.Views.Pages
 				yConstraint: Constraint.Constant(Device.OnPlatform(AppSettings.Margin, 10, 10)),
 				widthConstraint: Constraint.RelativeToParent(p => p.Width - AppSettings.Margin * 2)
 			);
-			//layout.Children.Add (deviceConnected,
-			//	xConstraint: Constraint.RelativeToView (deviceName, (p, v) => v.X + v.Width + 5),
-			//	yConstraint: Constraint.Constant (20),
-			//	widthConstraint: Constraint.RelativeToView (deviceName, (p, v) => v.Height),
-			//	heightConstraint: Constraint.RelativeToView (deviceName, (p, v) => v.Height)
-			//);
 			layout.Children.Add(currentAppLabel,
 				xConstraint: Constraint.Constant(AppSettings.Margin),
 				yConstraint: Constraint.RelativeToView(deviceName, (p, v) => v.Y + v.Height + 5),

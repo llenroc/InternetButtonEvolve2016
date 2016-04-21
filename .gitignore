@@ -53,6 +53,7 @@ iPhoneSimulator
 *~
 
 # Build/test output
+.AppPackages
 obj
 bin
 test-results

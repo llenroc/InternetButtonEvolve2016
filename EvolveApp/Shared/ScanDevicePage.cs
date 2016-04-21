@@ -81,9 +81,6 @@ namespace EvolveApp
 			{
 				viewModel.SetLock();
 
-				//await viewModel.GetDevice(InternetButtonHelper.Kirby);
-				//await Navigation.PushAsync(new DeviceLandingPage(viewModel.Device));
-
 				var scanPage = new ZXingScannerPage();
 
 				scanPage.OnScanResult += (result) =>
@@ -98,7 +95,6 @@ namespace EvolveApp
 						if (isValidDevice)
 						{
 							await viewModel.GetDevice(result.Text);
-							//await viewModel.GetDevice(InternetButtonHelper.Kirby);
 							await Navigation.PushAsync(new DeviceLandingPage(viewModel.Device));
 						}
 						else
@@ -108,10 +104,10 @@ namespace EvolveApp
 					});
 				};
 
-				//await Navigation.PushModalAsync(scanPage);
-				await viewModel.GetDevice(InternetButtonHelper.Whiskey);
-				await Navigation.PushAsync(new DeviceLandingPage(viewModel.Device));
-			};
+                await Navigation.PushModalAsync(scanPage);
+                //await viewModel.GetDevice(InternetButtonHelper.Whiskey);
+                //await Navigation.PushAsync(new DeviceLandingPage(viewModel.Device));
+            };
 
 			indicator.SetBinding(ActivityIndicator.IsRunningProperty, "IsBusy");
 			if (Device.OS != TargetPlatform.iOS && Device.OS != TargetPlatform.Android)
