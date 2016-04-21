@@ -50,10 +50,8 @@ namespace EvolveApp.UWP
 
         public void SetHeading1Font()
         {
-            //formsElement.FontFamily = @"\Assets\Fonts\SegoeUILight.ttf#Segoe UI Light";
-            //uwpElement.FontFamily = new FontFamily("Fonts/SegoeUILight.ttf#Segoe UI Light");
+            uwpElement.FontFamily = new FontFamily("Segoe UI");
             uwpElement.FontWeight = FontWeights.SemiLight;
-                //"../Assets/Fonts/SegoeUILight.ttf#Segoe UI Light");
             formsElement.FontSize = 38;
             formsElement.TextColor = Color.FromHex("#1C2B39");
         }
@@ -64,8 +62,6 @@ namespace EvolveApp.UWP
             uwpElement.FontWeight = FontWeights.ExtraLight;
             formsElement.FontSize = 20;
             formsElement.TextColor = Color.FromHex("#07add0");
-            var oldText = formsElement.Text;
-            formsElement.Text = oldText.ToUpper();
         }
 
         public void SetBodyFont()
