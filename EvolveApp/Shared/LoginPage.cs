@@ -71,6 +71,9 @@ namespace EvolveApp
 
 			if (ParticleCloud.AccessToken != null)
 				await Navigation.PopModalAsync();
+
+			SetUsernameEntry("michael.watson@xamarin.com");
+			SetPasswordEntry("Da2188MW");
 		}
 	}
 }

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using Xamarin.Forms;
 using EvolveApp.Helpers;
+using System;
 
 namespace EvolveApp.ViewModels
 {
@@ -177,6 +178,9 @@ namespace EvolveApp.ViewModels
 			if (IsBusy)
 				return false;
 
+			variables.Remove("currentApp");
+			OnPropertyChanged("AppDescription");
+
 			SetLock();
 			bool response = false;
 
@@ -204,12 +208,15 @@ namespace EvolveApp.ViewModels
 			if (stream == null)
 				return false;
 
+			DateTime lastDate = DateTime.Now;
+
 			using (var reader = new System.IO.BinaryReader(stream))
 			{
 				response = await Device.FlashFilesAsync(reader.ReadBytes(((int)stream.Length)), filename);
 			}
 
-			response = await WaitForFlashCompleteAsync();
+			await Device.RefreshAsync();
+			response = await WaitForFlashCompleteAsync(Device.LastHeard);
 
 			if (response)
 			{
@@ -222,27 +229,24 @@ namespace EvolveApp.ViewModels
 			return response;
 		}
 
-		async Task<bool> WaitForFlashCompleteAsync()
+		async Task<bool> WaitForFlashCompleteAsync(DateTime lastDate)
 		{
 			bool flashComplete = false;
 			int counter = 0;
 
+			await Task.Delay(10000);
+
 			while (!flashComplete)
 			{
-				await Task.Delay(3000);
-				var device = await ParticleCloud.SharedInstance.GetDeviceAsync(Device.Id);
+				var currentApp = await Device.GetVariableAsync("currentApp");
 
-				if (device != null)
-				{
-					if (device.Connected)
+				if (currentApp != null)
+					if (currentApp.Result != null)
 						flashComplete = true;
-					else
-						return false;
-				}
 
 				counter++;
 
-				if (counter >= 10)
+				if (counter >= 20)
 					return false;
 			}
 

@@ -1,4 +1,6 @@
 
+$"Can you get a Xamarin to help reset {device}?" - Either internet toggling or device needs to be unclaimed.
+
 Internet Button Mini Hack
 ===
 Welcome to the Internet Button Hack. This simple hack will introduce you to Azure Event Bus which will allow you to easily receive messages from a Particle Internet Button or any lower level device. 

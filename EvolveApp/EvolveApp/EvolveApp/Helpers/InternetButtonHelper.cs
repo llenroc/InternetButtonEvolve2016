@@ -19,6 +19,31 @@ namespace EvolveApp.Helpers
 			return false;
 		}
 
+		public static string GetDeviceName(string id)
+		{
+			switch (id)
+			{
+				case "3d002d000447343233323032":
+					return "Olive";
+				case "28002b000347343233323032":
+					return "Charlie";
+				case "3f0020000447343232363230":
+					return "Kirby";
+				case "20003f000547343232363230":
+					return "Whiskey";
+				case "35002e001747343338333633":
+					return "Anarkali";
+				case "2c002c000447343233323032":
+					return "Snow";
+				case "36002d000447343233323032":
+					return "Gizmo";
+				case "280021000d47343233323032":
+					return "Fempto";
+			}
+
+			return "Device not known";
+		}
+
 		public static string GetAppDescription(string app)
 		{
 			switch (app)

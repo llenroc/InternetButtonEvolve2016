@@ -150,7 +150,7 @@ namespace EvolveApp.Views.Pages
 					var success = await ViewModel.TryFlashFileAsync(result);
 					if (!success)
 					{
-						await DisplayAlert("Error", "The Device connection timed out after 30 seconds. Please re-scan the barcode once the device breaths a solid cyan light", "Ok");
+						await DisplayAlert("Error", "The Device connection timed out. Please try again once the device breaths a solid cyan light", "Ok");
 					}
 				}
 			};
@@ -158,8 +158,8 @@ namespace EvolveApp.Views.Pages
 			back.Clicked += async (object sender, EventArgs e) =>
 			{
 				var success = await ViewModel.Device.UnclaimAsync();
-				if (success)
-					Navigation.PopModalAsync(true);
+				//if (success)
+				Navigation.PopModalAsync(true);
 			};
 		}
 

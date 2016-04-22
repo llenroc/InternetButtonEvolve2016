@@ -96,7 +96,12 @@ namespace EvolveApp
 
 						if (isValidDevice)
 						{
-							await viewModel.GetDevice(result.Text);
+							var success = await viewModel.GetDevice(result.Text);
+							if (!success)
+							{
+								viewModel.ClearLock();
+								return;
+							}
 							var navPage = new NavigationPage(new DeviceLandingPage(viewModel.Device));
 #if __IOS__
 							navPage.BarBackgroundColor = AppColors.Blue;
@@ -112,8 +117,6 @@ namespace EvolveApp
 				};
 
 				await Navigation.PushModalAsync(scanPage);
-				//await viewModel.GetDevice(InternetButtonHelper.Whiskey);
-				//await Navigation.PushAsync(new DeviceLandingPage(viewModel.Device));
 			};
 
 			indicator.SetBinding(ActivityIndicator.IsRunningProperty, "IsBusy");
