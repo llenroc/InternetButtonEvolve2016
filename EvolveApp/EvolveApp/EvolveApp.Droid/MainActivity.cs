@@ -41,7 +41,14 @@ namespace EvolveApp.Droid
 			global::Xamarin.Forms.Forms.Init(this, bundle);
 			ZXing.Net.Mobile.Forms.Android.Platform.Init();
 			DependencyService.Register<ToastNotificatorImplementation>(); // Register your dependency
-			ToastNotificatorImplementation.Init(this, new FixNavBar());
+
+			if (((int)Android.OS.Build.VERSION.SdkInt) >= 20)
+			{
+				ToastNotificatorImplementation.Init(this, new FixNavBar());
+			}
+			else {
+				ToastNotificatorImplementation.Init(this);
+			}
 
 			LoadApplication(new App());
 		}
