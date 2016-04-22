@@ -20,7 +20,10 @@ namespace EvolveApp
 			BindingContext = ViewModel;
 
 			indicator.SetBinding(ActivityIndicator.IsRunningProperty, "IsBusy");
-		}
+
+            if (Device.OS == TargetPlatform.Windows)
+                indicator.SetBinding(ActivityIndicator.IsVisibleProperty, "IsBusy");
+        }
 
 		protected override void OnAppearing()
 		{
