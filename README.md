@@ -124,6 +124,25 @@ It is important to make sure that you enter the correct url. If you aren't sure,
 
 <img src="https://raw.githubusercontent.com/michael-watson/InternetButtonEvolve2016/master/images/azure/GetConnectionString.png?token=AIPtRjhTV3wE8y2JqdisxqZDNTUP3gdjks5XJkPUwA%3D%3D" width="600"/>
 
+From here we will need to login to our Particle CLI and create our webhook. Open up a terminal or command prompt to login. Type "particle login" and follow the login process like below:
+
+<img src="https://raw.githubusercontent.com/michael-watson/InternetButtonEvolve2016/master/images/azure/particlelogin.png?token=AIPtRiJxU6SQTblk6Pe3vG2B7E5hP8RCks5XJkUdwA%3D%3D" width="600"/>
+
+Once we are logged into the Particle CLI, we need to navigate to the directory wehere the json file was saved. From here we simply need to create the webhook by typing "particle webhook create webhook.json".
+
+<img src="https://raw.githubusercontent.com/michael-watson/InternetButtonEvolve2016/master/images/azure/particlewebhookcreate.png?token=AIPtRmtaawZdDoBH8jJA_mj9a6e6gMgdks5XJkXDwA%3D%3D" width="600"/>
+
+Now, let's go back to the application to play around!
+
+#Playing a game of Simon Says
+Open the mobile application up and flash the "Simon Says" application to the Internet Button. Once the flash is complete (application loading indicator stops spinning and Internet Button is breathing a blue color), press "START INTERACTION".
+
+<img src="https://raw.githubusercontent.com/michael-watson/InternetButtonEvolve2016/master/images/readme/SimonSays_Start.png?token=AIPtRi0QKBSZfl6_wXdBjr5X48ac89A-ks5XJka5wA%3D%3D" width="600"/>
+
+Go ahead and play a game. The game will publish the "SimonSays" events that will be received by Azure. After playing with the game, feel free to play around with the application more. There are some additional functionality you can play around with, like controlling the LED colors on the Internet Button.
+
+<img src="https://raw.githubusercontent.com/michael-watson/InternetButtonEvolve2016/master/images/readme/SimonSays_Start.png?token=AIPtRi0QKBSZfl6_wXdBjr5X48ac89A-ks5XJka5wA%3D%3D" width="600"/>
+
 
 
 Play the SimonSays game or any mobile interaction to send events to Azure. Show us your portal view with messages in the Event Bus to finish this mini-hack.
