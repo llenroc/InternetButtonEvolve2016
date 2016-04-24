@@ -77,10 +77,50 @@ Now once we have out Event Hub created, we will now need to configure the hub to
 
 From here we will need to configure a Shared Access Policy for the webhook to use. Select Configure from the top of the Event Hub page:
 
-<img src="https://raw.githubusercontent.com/michael-watson/InternetButtonEvolve2016/master/images/azure/viewEventHub.png?token=AIPtRmviqVp7jfrwHDH3cjv-8wgfUeBDks5XJj0wwA%3D%3D" width="600"/>
+<img src="https://raw.githubusercontent.com/michael-watson/InternetButtonEvolve2016/master/images/azure/selectConfigure.png?token=AIPtRr0HviM8Fp2PMCNW7pK-It-WAg1uks5XJj3TwA%3D%3D" width="600"/>
+
+Now you can pick any name for the Shared Access Policy and select "Send" from permissions. Once you hit save, the Shared Access Policy that you created will have a primary key that we will need.
+
+<img src="https://raw.githubusercontent.com/michael-watson/InternetButtonEvolve2016/master/images/azure/sharedAccessPolicies.png?token=AIPtRioStaDYwB4hG7PiH9qM6iQN7ZNhks5XJj5KwA%3D%3D" width="600"/>
+
+Now we have everything in Azure setup to receive messages! We will copy the Policy Name and Primary Key into our webhook.
 
 #Creating the Webhook
+Now we need to create a webhook to send our messages from the Particle Cloud to Azure. We can do this through a raw json file and our Particle CLI. Below is the json text you will need to save to a location somewhere on your drive. Just make sure you can easily point to the file to create the webhook
 
+```
+{
+	"event": "SimonSays",
+
+	"url": "https://(YOUR SERVICE BUS URL).servicebus.windows.net/YOUR SERVICE BUS NAME/messages",
+
+	"requestType": "POST",
+
+	"json": {
+
+		"gameid": "{{g}}",
+
+		"activity": "{{a}}",
+
+		"value": "{{v}}",
+
+		"timecreated": "{{SPARK_PUBLISHED_AT}}",
+
+		 "guid": "{{SPARK_CORE_ID}}"
+	},
+
+	"azure_sas_token": {
+
+		"key_name": "(POLICY NAME)",
+
+		"key": "(Shared Access Primary Key)"
+
+	},
+
+	"mydevices": true
+}
+```
+It is important to make sure that you 
 
 Play the SimonSays game or any mobile interaction to send events to Azure. Show us your portal view with messages in the Event Bus to finish this mini-hack.
 
