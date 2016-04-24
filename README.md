@@ -41,12 +41,37 @@ Let's get started then!
 #The Mobile Application
 As mentioned earlier, you can create a Particle account through the application:
 
-![Particle Sign Up](images/readme/SignUp.png | width=800)
+<img src="https://raw.githubusercontent.com/michael-watson/InternetButtonEvolve2016/master/images/readme/SignUp.png?token=AIPtRrG7qxDNyUGyLJSTvDW_L90yZ0-vks5XJjNPwA%3D%3D" width="600"/>
 
-Get picture of all scan device screens, walk through login signup process. Go through ineraction items
+Make sure you write down your username and password, you will need this to setup your webhook and login to the Particle cloud. Now you can login to the application.
+
+<img src="https://raw.githubusercontent.com/michael-watson/InternetButtonEvolve2016/master/images/readme/Login.png?token=AIPtRnUyeKb8RXW2CFuc3JeKw9RRzjAuks5XJjZAwA%3D%3D" width="600"/>
+
+Once logged into the application, you will land on the "Scan Device Page". This page allows us to scan the barcode on our InternetButton and take control of it.
+
+<img src="https://raw.githubusercontent.com/michael-watson/InternetButtonEvolve2016/master/images/readme/ScanDevice.png?token=AIPtRumtOnoOOGOsZkBoYk1KLbj6yCL1ks5XJjaxwA%3D%3D" width="600"/>
+
+We now control out Internet Button and we will land on the device mission control page.
+
+<img src="https://raw.githubusercontent.com/michael-watson/InternetButtonEvolve2016/master/images/readme/SimonSays_Overview.png?token=AIPtRmVs71JpUPVRIKoUUkXfzgccASdAks5XJjcuwA%3D%3D" width="600"/>
+
+
+Let's setup our Azure stuff before we go any further in the application.
 
 #Azure Event Bus
-Go through creating an Azure Event Bus and getting the relevant links for the webhook.
+Login to your Azure Portal or [start a free trial](https://azure.microsoft.com/en-us/pricing/free-trial/) if you don't have an Azure account. 
+
+Once logged in to our Azure Portal, we are going to create a new Internet of Things resource called Azure Event Bus.
+
+<img src="https://raw.githubusercontent.com/michael-watson/InternetButtonEvolve2016/master/images/azure/NewEventHub.png?token=AIPtRsemtRp6hR9cHxtfqALEjXPVDF0lks5XJjfAwA%3D%3D" width="600"/>
+
+Some Internet of Things aren't supported by Azure IoT Hub because it requires the Azure IoT Library installed, but that doesn't mean we can't use Azure to understand our IoT devices better! Really every IoT device should speak to some hub to gather and analyze the data.
+
+After selecting Event Hub, Azure should bring up everything to create a new Event Bus like below:
+
+<img src="https://raw.githubusercontent.com/michael-watson/InternetButtonEvolve2016/master/images/azure/createNewEventHub.png?token=AIPtRkfklbXTyNCi5_LgtXj5vhGk3P_7ks5XJjo3wA%3D%3D" width="600"/>
+
+Now once we have out Event Hub created, we will now need to configure the hub to have a token for our device webhook. We can do this by selecting "Configure" and adding a token.
 
 #Creating the Webhook
 
