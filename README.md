@@ -4,11 +4,7 @@ Welcome to the Internet Button Hack. This simple hack will introduce you to Azur
 
 By completing this hack you will have a Azure Event Bus that will receive messages from the SimonSays game interactions. The mobile application will also publish events that can be received through the Event Bus.
 
-
-
 Sounds amazing, doesn't it?  We think so too!  
-
-We think you'll be able to complete this mini hack in 20 minutes.  If you get stuck or have any questions, no problem.  Head over to the Twilio booth and we'll be happy to walk through some code with you.
 
 Alright.  With the intro out of the way, let’s get building!
 
