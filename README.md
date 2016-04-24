@@ -71,7 +71,13 @@ After selecting Event Hub, Azure should bring up everything to create a new Even
 
 <img src="https://raw.githubusercontent.com/michael-watson/InternetButtonEvolve2016/master/images/azure/createNewEventHub.png?token=AIPtRkfklbXTyNCi5_LgtXj5vhGk3P_7ks5XJjo3wA%3D%3D" width="600"/>
 
-Now once we have out Event Hub created, we will now need to configure the hub to have a token for our device webhook. We can do this by selecting "Configure" and adding a token.
+Now once we have out Event Hub created, we will now need to configure the hub to have a token for our device webhook. Once the Event Bus is created, select it in the overview screen:
+
+<img src="https://raw.githubusercontent.com/michael-watson/InternetButtonEvolve2016/master/images/azure/viewEventHub.png?token=AIPtRmviqVp7jfrwHDH3cjv-8wgfUeBDks5XJj0wwA%3D%3D" width="600"/>
+
+From here we will need to configure a Shared Access Policy for the webhook to use. Select Configure from the top of the Event Hub page:
+
+<img src="https://raw.githubusercontent.com/michael-watson/InternetButtonEvolve2016/master/images/azure/viewEventHub.png?token=AIPtRmviqVp7jfrwHDH3cjv-8wgfUeBDks5XJj0wwA%3D%3D" width="600"/>
 
 #Creating the Webhook
 
