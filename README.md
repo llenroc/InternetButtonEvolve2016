@@ -25,11 +25,12 @@ To get started you'll need to create an Azure account if you don't already have 
 
 You will also need to create a Particle account. Don't worry, it's is completely free to [signup](https://build.particle.io/signup). You can also create an account through the mobile application if you don't want to interact with the Particle website. Once you have signed up, make sure to write down your username and password because we will need it soon. 
 
-Next we need to install the Particle command line tools. We will use this to create the webhook that will send messages to our Azure Event Bus.
-- [Windows Install Instructions](https://community.particle.io/t/tutorial-particle-cli-on-windows-07-jun-2015/3112)
-- [Mac Install Instructions](https://github.com/spark/particle-cli#installing)
+Next we need to install the Particle command line tools. We will use this to create the webhook that will send messages to our Azure Event Bus.  
 
-###TENTATIVE
+[Particle CLI Windows Install Instructions](https://community.particle.io/t/tutorial-particle-cli-on-windows-07-jun-2015/3112)  
+[Particle CLI Mac Install Instructions](https://github.com/spark/particle-cli#installing)
+
+###Ready?
 
 Azure account created? Check.  
 Particle account created? Check.  
@@ -38,6 +39,10 @@ Particle CLI or Sample installed? Check.
 Let's get started then!
 
 #The Mobile Application
+As mentioned earlier, you can create a Particle account through the application:
+
+![Particle Sign Up](images/readme/SignUp.png | width=800)
+
 Get picture of all scan device screens, walk through login signup process. Go through ineraction items
 
 #Azure Event Bus
