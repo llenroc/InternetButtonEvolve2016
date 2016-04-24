@@ -120,7 +120,11 @@ Now we need to create a webhook to send our messages from the Particle Cloud to 
 	"mydevices": true
 }
 ```
-It is important to make sure that you 
+It is important to make sure that you enter the correct url. If you aren't sure, go back to your Azure Portal and view the Event Bus dashboard. There is a an "Event Hub URL" displayed and that is the link we will use with the addition of "/messages".
+
+<img src="https://raw.githubusercontent.com/michael-watson/InternetButtonEvolve2016/master/images/azure/GetConnectionString.png?token=AIPtRjhTV3wE8y2JqdisxqZDNTUP3gdjks5XJkPUwA%3D%3D" width="600"/>
+
+
 
 Play the SimonSays game or any mobile interaction to send events to Azure. Show us your portal view with messages in the Event Bus to finish this mini-hack.
 
