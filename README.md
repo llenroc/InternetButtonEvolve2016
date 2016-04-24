@@ -1,6 +1,3 @@
-
-$"Can you get a Xamarin to help reset {device}?" - Either internet toggling or device needs to be unclaimed.
-
 Internet Button Mini Hack
 ===
 Welcome to the Internet Button Hack. This simple hack will introduce you to Azure Event Bus which will allow you to easily receive messages from a Particle Internet Button or any lower level device. 
@@ -141,9 +138,9 @@ Open the mobile application up and flash the "Simon Says" application to the Int
 
 Go ahead and play a game. The game will publish the "SimonSays" events that will be received by Azure. After playing with the game, feel free to play around with the application more. There are some additional functionality you can play around with, like controlling the LED colors on the Internet Button.
 
-<img src="https://raw.githubusercontent.com/michael-watson/InternetButtonEvolve2016/master/images/readme/SimonSays_Start.png?token=AIPtRi0QKBSZfl6_wXdBjr5X48ac89A-ks5XJka5wA%3D%3D" width="600"/>
+<img src="https://raw.githubusercontent.com/michael-watson/InternetButtonEvolve2016/master/images/readme/rgbled.png?token=AIPtRn3x3hOGlmchoTocKTWtTd0-Ng2zks5XJk6hwA%3D%3D" width="600"/>
 
+It could take a few minutes for messages to start popping up in the Event Hub. Looking at Total Requests will show up sooner than Incoming Messages because Azure will have to process the json into a message. Show us your portal view with messages in the Event Bus to finish this mini-hack. We will accept Total Requests or Incoming Messages.
 
-
-Play the SimonSays game or any mobile interaction to send events to Azure. Show us your portal view with messages in the Event Bus to finish this mini-hack.
+<img src="https://raw.githubusercontent.com/michael-watson/InternetButtonEvolve2016/master/images/azure/receivedMessages.png?token=AIPtRuNlRRldjhN4WHusJaAXg_TD9JlSks5XJk8VwA%3D%3D" width="600"/>
 
