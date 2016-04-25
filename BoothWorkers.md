@@ -1,3 +1,7 @@
+Particle Master Login:
+michael.watson@xamarin.com
+Xamarin_2016
+
 #General flow for mini-hack
 1. Setup a Particle account
 2. Use the provided mobile application to login and scan a device
@@ -32,5 +36,20 @@ Device refers to the Internet Button.
 			* Have them login
 			* There is a json file on the desktop they can modify and use to setup their webhook
 			* They will have to manually enter the information, or could login to Azure portal directly on computer
+			* run 'particle webhook create webhook.json'
+
+##How to switch the Internet Buttons wifi network
+* Connect the internet button to mac through serial port.
+	* You might need to ensure you are logged into the master account
+		* particle logout
+		* particle login
+		* enter Master account credentials at top of thie README
+* Press and hold 'Setup' button on top of Internet Button until the light starts blinking solid blue. 
+	* This means the device is in listening mode.
+* Open terminal and run 'particle serial wifi'
+* Run through setup and enter proper credentials
+* If the light just flashes green for longer than a minute, either the wifi connection isn't working or the password was entered incorrectly
+	* Try repeating the wifi setup
+
 			
 
