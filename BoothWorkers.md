@@ -1,10 +1,10 @@
-Particle Master Login:
-michael.watson@xamarin.com
-Xamarin_2016
-
-Mac login:
-account: CSE
-password: reallybeefydude
+Particle Master Login:  
+username: michael.watson@xamarin.com  
+password: Xamarin_2016  
+ 
+Mac login:  
+account: CSE  
+password: reallybeefydude  
 
 #General flow for mini-hack
 1. Setup a Particle account
