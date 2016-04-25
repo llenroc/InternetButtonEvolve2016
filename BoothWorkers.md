@@ -2,6 +2,10 @@ Particle Master Login:
 michael.watson@xamarin.com
 Xamarin_2016
 
+Mac login:
+account: CSE
+password: reallybeefydude
+
 #General flow for mini-hack
 1. Setup a Particle account
 2. Use the provided mobile application to login and scan a device
