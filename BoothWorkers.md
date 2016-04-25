@@ -22,7 +22,15 @@ Device refers to the Internet Button.
 		* If the device is breathing a blue light:
 			* Find that device in the Particle dashboard and unclaim it from a user
 			
-<img src="https://raw.githubusercontent.com/michael-watson/InternetButtonEvolve2016/master/images/readme/SimonSays_Overview.png?token=AIPtRmVs71JpUPVRIKoUUkXfzgccASdAks5XJjcuwA%3D%3D" width="600"/>
+<img src="https://raw.githubusercontent.com/michael-watson/InternetButtonEvolve2016/master/images/unclaimDevice.png?token=AIPtRrjsy9I7-Qu62k9zNTv4ua1wUA6Vks5XJnsGwA%3D%3D" width="600"/>
 
-* 
-$"Can you get a Xamarin to help reset {device}?" - Either internet toggling or device needs to be unclaimed.
+* Can't install Particle CLI tools for some reason
+	* The MAC has command line tools setup and they can use it to set the webhook up. 
+		* Run the following commands
+			* particle logout
+			* particle login
+			* Have them login
+			* There is a json file on the desktop they can modify and use to setup their webhook
+			* They will have to manually enter the information, or could login to Azure portal directly on computer
+			
+

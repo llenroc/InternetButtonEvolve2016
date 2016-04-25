@@ -60,5 +60,11 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\particle-xamarin\Particle\Particle.csproj">
+      <Project>{A6E8BFFA-840F-4078-88F4-D4179C23382F}</Project>
+      <Name>Particle</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
