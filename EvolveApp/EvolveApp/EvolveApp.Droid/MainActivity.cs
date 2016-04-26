@@ -9,6 +9,7 @@ using Android.OS;
 using TextStyles.Android;
 using Xamarin.Forms;
 using Plugin.Toasts;
+using Xamarin.Forms.Platform.Android;
 
 namespace EvolveApp.Droid
 {
@@ -38,6 +39,7 @@ namespace EvolveApp.Droid
 				TextStyle.Instance.SetCSS(App.CSS);
 			}
 
+			Xamarin.Insights.Initialize("5c4f7461602c97af8a43c24bab1d1d92b65a1d73", ApplicationContext);
 			global::Xamarin.Forms.Forms.Init(this, bundle);
 			ZXing.Net.Mobile.Forms.Android.Platform.Init();
 			DependencyService.Register<ToastNotificatorImplementation>(); // Register your dependency

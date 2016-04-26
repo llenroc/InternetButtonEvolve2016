@@ -13,7 +13,7 @@ namespace EvolveApp.ViewModels
 		{
 			IsBusy = true;
 
-			await ParticleCloud.SharedInstance.CreateOAuthClientAsync(token, "xamarin");
+			await ParticleCloud.SharedInstance.CreateOAuthClientAsync("xamarin", token);
 			var response = await ParticleCloud.SharedInstance.LoginWithUserAsync(username, password);
 
 			IsBusy = false;

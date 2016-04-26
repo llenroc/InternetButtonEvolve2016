@@ -7,6 +7,7 @@ using Xamarin.Forms;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using Plugin.Toasts;
+using Xamarin;
 
 namespace EvolveApp.ViewModels
 {
@@ -200,27 +201,34 @@ namespace EvolveApp.ViewModels
 			else {
 				var result = await InternetButton.CallFunctionAsync("buttonPress", playerEntry);
 
-                if (Device.OS == TargetPlatform.iOS || Device.OS == TargetPlatform.Android)
-                {
-                    if (result == "1")
-                    {
-                        Device.BeginInvokeOnMainThread(() =>
-                        {
-                            var notificator = DependencyService.Get<IToastNotificator>();
-                            notificator.Notify(ToastNotificationType.Success,
-                                $"{InternetButton.Name} Says:", "You got that one right....", TimeSpan.FromSeconds(2));
-                        });
-                    }
-                    else if (result == "-1")
-                    {
-                        Device.BeginInvokeOnMainThread(() =>
-                        {
-                            var notificator = DependencyService.Get<IToastNotificator>();
-                            notificator.Notify(ToastNotificationType.Warning,
-                                $"{InternetButton.Name} Says:", "Don't interrupt my masterpiece!!!", TimeSpan.FromSeconds(1));
-                        });
-                    }
-                }
+				if (Device.OS == TargetPlatform.iOS || Device.OS == TargetPlatform.Android)
+				{
+					if (result == "1")
+					{
+						Insights.Track("Correct Move", new Dictionary<string, string> {
+							{"Player Entry", playerEntry},
+							{"Move Count", playerEntry.Length.ToString()},
+							{"Made By", ParticleCloud.SharedInstance.LoggedInUsername},
+							{"Device Name", ParticleCloud.SharedInstance.LoggedInUsername}
+						});
+
+						Device.BeginInvokeOnMainThread(() =>
+						{
+							var notificator = DependencyService.Get<IToastNotificator>();
+							notificator.Notify(ToastNotificationType.Success,
+								$"{InternetButton.Name} Says:", "You got that one right....", TimeSpan.FromSeconds(2));
+						});
+					}
+					else if (result == "-1")
+					{
+						Device.BeginInvokeOnMainThread(() =>
+						{
+							var notificator = DependencyService.Get<IToastNotificator>();
+							notificator.Notify(ToastNotificationType.Warning,
+								$"{InternetButton.Name} Says:", "Don't interrupt my masterpiece!!!", TimeSpan.FromSeconds(1));
+						});
+					}
+				}
 
 				ClearPlayerEntry();
 			}
@@ -357,29 +365,31 @@ namespace EvolveApp.ViewModels
 			playerEntry = "";
 			gameCheckGuid = await InternetButton.SubscribeToEventsWithPrefixAsync("SimonSays", GameHandler);
 
-            if (Device.OS == TargetPlatform.iOS || Device.OS == TargetPlatform.Android)
-            {
-                Device.BeginInvokeOnMainThread(() =>
-                {
-                    var notificator = DependencyService.Get<IToastNotificator>();
-                    notificator.Notify(ToastNotificationType.Success,
-                        $"{InternetButton.Name} Says:", "Better bring your A game!!", TimeSpan.FromSeconds(1));
-                });
-            }
+			//if (Device.OS == TargetPlatform.iOS || Device.OS == TargetPlatform.Android)
+			if (Device.OS != TargetPlatform.Windows)
+			{
+				Device.BeginInvokeOnMainThread(() =>
+				{
+					var notificator = DependencyService.Get<IToastNotificator>();
+					notificator.Notify(ToastNotificationType.Success,
+						$"{InternetButton.Name} Says:", "Better bring your A game!!", TimeSpan.FromSeconds(1));
+				});
+			}
 
 			var success = await InternetButton.CallFunctionAsync("startSimon");
 
-			if (success == "Timed out." )
+			if (success == "Timed out.")
 			{
-                if (Device.OS == TargetPlatform.iOS || Device.OS == TargetPlatform.Android)
-                {
-                    Device.BeginInvokeOnMainThread(() =>
-                    {
-                        var notificator = DependencyService.Get<IToastNotificator>();
-                        notificator.Notify(ToastNotificationType.Success,
-                            $"{InternetButton.Name} Died", "But I'll come back to life!!", TimeSpan.FromSeconds(1));
-                    });
-                }
+				//if (Device.OS == TargetPlatform.iOS || Device.OS == TargetPlatform.Android)
+				if (Device.OS != TargetPlatform.Windows)
+				{
+					Device.BeginInvokeOnMainThread(() =>
+					{
+						var notificator = DependencyService.Get<IToastNotificator>();
+						notificator.Notify(ToastNotificationType.Success,
+							$"{InternetButton.Name} Died", "But I'll come back to life!!", TimeSpan.FromSeconds(1));
+					});
+				}
 			}
 			gameRunning = true;
 
@@ -393,22 +403,29 @@ namespace EvolveApp.ViewModels
 			{
 				gameId += rand.Next(0, 9);
 			}
-
+			Insights.Track("Game Started", new Dictionary<string, string>
+			{
+				{"Game ID", gameId},
+				{"Started By", ParticleCloud.SharedInstance.LoggedInUsername},
+				{"Device Name", ParticleCloud.SharedInstance.LoggedInUsername}
+			});
 		}
 
 		public async Task Winner()
 		{
 			playerEntry = "Winner";
+			Insights.Track("Game Won", "Won By", ParticleCloud.SharedInstance.LoggedInUsername);
 
-            if (Device.OS == TargetPlatform.iOS || Device.OS == TargetPlatform.Android)
-            {
-                Device.BeginInvokeOnMainThread(() =>
-                {
-                    var notificator = DependencyService.Get<IToastNotificator>();
-                    notificator.Notify(ToastNotificationType.Success,
-                        "Winner", "You beat Simon!!", TimeSpan.FromSeconds(2));
-                });
-            }
+			//if (Device.OS == TargetPlatform.iOS || Device.OS == TargetPlatform.Android)
+			if (Device.OS != TargetPlatform.Windows)
+			{
+				Device.BeginInvokeOnMainThread(() =>
+				{
+					var notificator = DependencyService.Get<IToastNotificator>();
+					notificator.Notify(ToastNotificationType.Success,
+						"Winner", "You beat Simon!!", TimeSpan.FromSeconds(2));
+				});
+			}
 
 			OnPropertyChanged("DetailText");
 
@@ -417,21 +434,23 @@ namespace EvolveApp.ViewModels
 
 		public async Task Loser()
 		{
-            if (Device.OS == TargetPlatform.iOS || Device.OS == TargetPlatform.Android)
-            {
-                Device.BeginInvokeOnMainThread(() =>
-                {
-                    var notificator = DependencyService.Get<IToastNotificator>();
-                    notificator.Notify(ToastNotificationType.Error,
-                        $"{InternetButton.Name} Says: ", "MWHUAHAHAHA I WIN!!", TimeSpan.FromSeconds(2));
-                });
-            } else
-            {
-                Device.BeginInvokeOnMainThread(() =>
-                {
-                    Application.Current.MainPage.DisplayAlert($"{InternetButton.Name} Says", "MWHUAHAHAHA I WIN!!", "This time...");
-                });
-            }
+			//if (Device.OS == TargetPlatform.iOS || Device.OS == TargetPlatform.Android)
+			if (Device.OS != TargetPlatform.Windows)
+			{
+				Device.BeginInvokeOnMainThread(() =>
+				{
+					var notificator = DependencyService.Get<IToastNotificator>();
+					notificator.Notify(ToastNotificationType.Error,
+						$"{InternetButton.Name} Says: ", "MWHUAHAHAHA I WIN!!", TimeSpan.FromSeconds(2));
+				});
+			}
+			else
+			{
+				Device.BeginInvokeOnMainThread(() =>
+				{
+					Application.Current.MainPage.DisplayAlert($"{InternetButton.Name} Says", "MWHUAHAHAHA I WIN!!", "This time...");
+				});
+			}
 
 			await EndGame();
 		}
@@ -514,7 +533,7 @@ namespace EvolveApp.ViewModels
 				}
 				else {
 					await Loser();
-                }
+				}
 			}
 
 			System.Diagnostics.Debug.WriteLine($"{e.EventData.Event}: {e.EventData.Data}\n{e.EventData.DeviceId}");

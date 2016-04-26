@@ -21,6 +21,7 @@ namespace EvolveApp.iOS
 		EvolveApp.App formsApp;
 		public override bool FinishedLaunching(UIApplication app, NSDictionary options)
 		{
+			Xamarin.Insights.Initialize("5c4f7461602c97af8a43c24bab1d1d92b65a1d73");
 			global::Xamarin.Forms.Forms.Init();
 			ZXing.Net.Mobile.Forms.iOS.Platform.Init();
 

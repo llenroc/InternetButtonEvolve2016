@@ -3,13 +3,13 @@
 using Xamarin.Forms;
 using Particle;
 using EvolveApp.ViewModels;
+using Xamarin;
 
 namespace EvolveApp
 {
 	public class NewUserSignUpPage : ContentPage
 	{
 		BaseViewModel ViewModel;
-		//LoginEntry usernameEntry, passwordEntry, reEnterPasswordEntry;
 
 		public NewUserSignUpPage()
 		{
@@ -160,6 +160,7 @@ namespace EvolveApp
 
 				if (result == "Success")
 				{
+					Insights.Track("Particle Sign-up", "Username", usernameEntry.Text);
 					await DisplayAlert("Success", "Your account was successfully created. Now let's login.", "Ok");
 					await Navigation.PopAsync();
 				}

@@ -183,15 +183,20 @@
     <Reference Include="Calabash">
       <HintPath>..\..\packages\Xamarin.TestCloud.Agent.0.19.0\lib\Xamarin.iOS10\Calabash.dll</HintPath>
     </Reference>
+    <Reference Include="Xamarin.Insights">
+      <HintPath>..\..\packages\Xamarin.Insights.1.12.3\lib\Xamarin.iOS10\Xamarin.Insights.dll</HintPath>
+    </Reference>
+    <Reference Include="PLCrashReporterUnifiedBinding">
+      <HintPath>..\..\packages\Xamarin.Insights.1.12.3\lib\Xamarin.iOS10\PLCrashReporterUnifiedBinding.dll</HintPath>
+    </Reference>
+    <Reference Include="Particle">
+      <HintPath>..\..\packages\ParticleXamarinSDK.1.2.1\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Particle.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EvolveApp\EvolveApp.csproj">
       <Project>{A83CCC0F-B250-4836-83FF-53BB92F50419}</Project>
       <Name>EvolveApp</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\particle-xamarin\Particle\Particle.csproj">
-      <Project>{A6E8BFFA-840F-4078-88F4-D4179C23382F}</Project>
-      <Name>Particle</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -206,4 +211,5 @@
   <Import Project="..\..\Shared\Shared.projitems" Label="Shared" Condition="Exists('..\..\Shared\Shared.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Import Project="..\..\packages\Xamarin.Forms.2.1.0.6529\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets" Condition="Exists('..\..\packages\Xamarin.Forms.2.1.0.6529\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets')" />
+  <Import Project="..\..\packages\Xamarin.Insights.1.12.3\build\Xamarin.iOS10\Xamarin.Insights.targets" Condition="Exists('..\..\packages\Xamarin.Insights.1.12.3\build\Xamarin.iOS10\Xamarin.Insights.targets')" />
 </Project>

@@ -66,6 +66,7 @@ namespace EvolveApp.ViewModels
 			}
 		}
 
+		bool deviceConnected;
 		public bool DeviceConnected
 		{
 			get

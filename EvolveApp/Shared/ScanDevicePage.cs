@@ -9,6 +9,8 @@ using EvolveApp.Pages;
 using EvolveApp.Helpers;
 using EvolveApp.ViewModels;
 using EvolveApp.Views.Pages;
+using Xamarin;
+using System.Collections.Generic;
 
 namespace EvolveApp
 {
@@ -90,9 +92,8 @@ namespace EvolveApp
 					Device.BeginInvokeOnMainThread(async () =>
 					{
 						await Navigation.PopModalAsync();
-						System.Diagnostics.Debug.WriteLine($"Result: {result.Text}");
+
 						var isValidDevice = InternetButtonHelper.CheckDeviceId(result.Text);
-						System.Diagnostics.Debug.WriteLine($"{isValidDevice}");
 
 						if (isValidDevice)
 						{
@@ -107,6 +108,12 @@ namespace EvolveApp
 							navPage.BarBackgroundColor = AppColors.Blue;
 							navPage.BarTextColor = Color.White;
 #endif
+							Insights.Track("Device Claimed", new Dictionary<string, string>
+							{
+								{"Claimed By", ParticleCloud.SharedInstance.LoggedInUsername},
+								{"Device Name", viewModel.Device.Name},
+								{"Device Id", viewModel.Device.Id}
+							});
 							await Navigation.PushModalAsync(navPage);
 						}
 						else
@@ -120,7 +127,7 @@ namespace EvolveApp
 			};
 
 			indicator.SetBinding(ActivityIndicator.IsRunningProperty, "IsBusy");
-			if (Device.OS != TargetPlatform.iOS && Device.OS != TargetPlatform.Android)
+			if (Device.OS == TargetPlatform.Windows)
 				indicator.SetBinding(ActivityIndicator.IsVisibleProperty, "IsBusy");
 
 #if __IOS__
