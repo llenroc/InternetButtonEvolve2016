@@ -159,7 +159,8 @@ namespace EvolveApp.Views.Pages
 			{
 				var success = await ViewModel.Device.UnclaimAsync();
 				//if (success)
-				Navigation.PopModalAsync(true);
+				ParticleCloud.SharedInstance.Logout();
+				await Navigation.PopModalAsync(true);
 			};
 		}
 
@@ -168,6 +169,14 @@ namespace EvolveApp.Views.Pages
 			base.OnAppearing();
 
 			await ViewModel.RefreshDeviceAsync();
+		}
+		protected override void OnDisappearing()
+		{
+			base.OnDisappearing();
+
+#if __ANDROID__
+			Navigation.PushModalAsync(new LoginPage { LogoFileImageSource = "xamarin_logo.png" });
+#endif
 		}
 	}
 }

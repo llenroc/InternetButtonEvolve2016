@@ -41,6 +41,14 @@ Device refers to the Internet Button.
 			* There is a json file on the desktop they can modify and use to setup their webhook
 			* They will have to manually enter the information, or could login to Azure portal directly on computer
 			* run 'particle webhook create webhook.json'
+* Not getting messages in Azure
+	* Make sure every field in the json webhook file is correct
+		* Check the configuration in the Azure Event Bus to make sure the Policy name and Policy Key are correct. 
+		* The url for the Azure Event Bus MUST have "https://"
+		
+	* Check the webhook is registed by running terminal command:
+		* 'particle webhook list'
+	* 
 
 ##How to switch the Internet Buttons wifi network
 * Connect the internet button to mac through serial port.

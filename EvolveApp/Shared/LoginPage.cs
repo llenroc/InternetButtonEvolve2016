@@ -54,5 +54,11 @@ namespace EvolveApp
 			if (ParticleCloud.AccessToken != null)
 				await Navigation.PopModalAsync();
 		}
+#if __ANDROID__
+		protected override bool OnBackButtonPressed()
+		{
+			return true;
+		}
+#endif
 	}
 }

@@ -44,7 +44,6 @@
     <Compile Include="Views\Controls\StyledButton.cs" />
     <Compile Include="Views\Controls\StyledLabel.cs" />
     <Compile Include="Views\Pages\SimonSaysPage.cs" />
-    <Compile Include="Views\Pages\DeviceLandingPage.cs" />
     <Compile Include="ViewModels\DeviceLandingPageViewModel.cs" />
     <Compile Include="ViewModels\ScanDeviceViewModel.cs" />
     <Compile Include="Views\Controls\DashboardWidget.cs" />
