@@ -108,12 +108,7 @@ namespace EvolveApp
 							navPage.BarBackgroundColor = AppColors.Blue;
 							navPage.BarTextColor = Color.White;
 #endif
-							Insights.Track("Device Claimed", new Dictionary<string, string>
-							{
-								{"Claimed By", ParticleCloud.SharedInstance.LoggedInUsername},
-								{"Device Name", viewModel.Device.Name},
-								{"Device Id", viewModel.Device.Id}
-							});
+						
 							await Navigation.PushModalAsync(navPage);
 						}
 						else

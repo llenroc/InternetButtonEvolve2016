@@ -21,7 +21,7 @@ namespace EvolveApp.Droid
 			var styledElement = Element as StyledLabel;
 			var cssStyle = styledElement.CssStyle;
 
-			if (Control != null) {
+            if (Control != null && cssStyle != null) {
 				TextStyle.Style<TextView> (Control, cssStyle);
 			}
 		}

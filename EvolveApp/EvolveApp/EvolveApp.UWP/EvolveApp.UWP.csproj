@@ -148,16 +148,11 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\particle-xamarin\Particle\Particle.csproj">
-      <Project>{a6e8bffa-840f-4078-88f4-d4179c23382f}</Project>
-      <Name>Particle</Name>
-    </ProjectReference>
     <ProjectReference Include="..\EvolveApp\EvolveApp.csproj">
       <Project>{A83CCC0F-B250-4836-83FF-53BB92F50419}</Project>
       <Name>EvolveApp</Name>
     </ProjectReference>
   </ItemGroup>
-  <Import Project="..\..\Shared\Shared.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

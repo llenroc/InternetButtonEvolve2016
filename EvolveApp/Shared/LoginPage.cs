@@ -32,8 +32,6 @@ namespace EvolveApp
 
 			if (ParticleCloud.AccessToken != null && response)
 			{
-				Insights.Track("Particle Login", "Username", userName);
-
 				await Navigation.PopModalAsync();
 			}
 			else
