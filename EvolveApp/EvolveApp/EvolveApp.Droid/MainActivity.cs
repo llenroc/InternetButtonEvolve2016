@@ -6,10 +6,11 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
-using TextStyles.Android;
 using Xamarin.Forms;
 using Plugin.Toasts;
 using Xamarin.Forms.Platform.Android;
+using Styles.Droid.Text;
+using Styles.Core.Text;
 
 namespace EvolveApp.Droid
 {
@@ -29,18 +30,9 @@ namespace EvolveApp.Droid
 
 			base.OnCreate(bundle);
 
-			var textCheck = TextStyle.Instance.GetFont("SegoeUI-Regular");
-
-			if (textCheck == null)
-			{
-				// Initialise the TextStyle Class
-				TextStyle.Instance.AddFont("SegoeUI-Regular", "SegoeUIRegular.ttf");
-				TextStyle.Instance.AddFont("SegoeUI-Light", "SegoeUILight.ttf");
-				TextStyle.Instance.SetCSS(App.CSS);
-			}
-
 			global::Xamarin.Forms.Forms.Init(this, bundle);
 			DependencyService.Register<ToastNotificatorImplementation>(); // Register your dependency
+			DependencyService.Register<ITextStyle, TextStyle>();
 
 			if (((int)Android.OS.Build.VERSION.SdkInt) >= 20)
 			{

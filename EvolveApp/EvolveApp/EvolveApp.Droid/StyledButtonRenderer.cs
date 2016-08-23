@@ -1,7 +1,7 @@
 ﻿using System;
 using Android.Widget;
 using EvolveApp;
-using TextStyles.Android;
+using Styles.Droid.Text;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
@@ -19,7 +19,7 @@ namespace EvolveApp.Droid
 
 			if (Control != null)
 			{
-				TextStyle.Style<TextView>(Control, cssStyle);
+				TextStyle.Main.Style<TextView>(Control, cssStyle);
 				Control.Gravity = Android.Views.GravityFlags.Center;
 			}
 		}

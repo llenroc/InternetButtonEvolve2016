@@ -6,7 +6,8 @@ using Xamarin.Forms;
 using EvolveApp;
 using Xamarin.Forms.Platform.iOS;
 using UIKit;
-using TextStyles.iOS;
+using Styles.iOS.Text;
+using Styles.XForms.Core;
 
 [assembly: ExportRenderer(typeof(StyledLabel), typeof(EvolveApp.iOS.StyledLabelRenderer))]
 namespace EvolveApp.iOS
@@ -23,7 +24,7 @@ namespace EvolveApp.iOS
 
 			if (Control != null)
 			{
-				TextStyle.Style<UILabel>(Control, _styledElement.CssStyle);
+				TextStyle.Main.Style<UILabel>(Control, _styledElement.CssStyle);
 			}
 		}
 
@@ -33,7 +34,7 @@ namespace EvolveApp.iOS
 
 			if (e.PropertyName == "Text")
 			{
-				TextStyle.Style<UILabel>(Control, _styledElement.CssStyle);
+				TextStyle.Main.Style<UILabel>(Control, _styledElement.CssStyle);
 			}
 		}
 	}

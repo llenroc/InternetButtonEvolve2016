@@ -1,30 +1,30 @@
-﻿using System;
-using Android.Widget;
-using EvolveApp;
-using TextStyles.Android;
+﻿using Styles.Droid.Text;
+using Styles.XForms.Core;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
-[assembly: ExportRenderer (typeof (StyledLabel), typeof (EvolveApp.Droid.StyledLabelRenderer))]
-namespace EvolveApp.Droid
+[assembly: ExportRenderer(typeof(StyledLabel), typeof(Styles.XForms.Droid.StyledLabelRenderer))]
+namespace Styles.XForms.Droid
 {
 	public class StyledLabelRenderer : LabelRenderer
 	{
-		public StyledLabelRenderer ()
+		StyledLabel _styledElement;
+
+		protected override void OnElementChanged(ElementChangedEventArgs<Label> e)
 		{
-		}
+			base.OnElementChanged(e);
 
-		protected override void OnElementChanged (ElementChangedEventArgs<Label> e)
-		{
-			base.OnElementChanged (e);
+			_styledElement = _styledElement ?? (Element as StyledLabel);
 
-			var styledElement = Element as StyledLabel;
-			var cssStyle = styledElement.CssStyle;
+			var cssStyle = _styledElement.CssStyle;
 
-            if (Control != null && cssStyle != null) {
-				TextStyle.Style<TextView> (Control, cssStyle);
+			var textStyle = (!string.IsNullOrEmpty(_styledElement.TextStyleInstance) && TextStyle.Instances.ContainsKey(_styledElement.TextStyleInstance))
+					? TextStyle.Instances[_styledElement.TextStyleInstance] : TextStyle.Main;
+
+			if (Control != null)
+			{
+				textStyle.Style(Control, cssStyle, null, _styledElement.CustomTags);
 			}
 		}
 	}
 }
-

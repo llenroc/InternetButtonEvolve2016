@@ -49,24 +49,25 @@
     <Compile Include="Views\DeviceCell.cs" />
     <Compile Include="Views\DeviceListViewHeader.cs" />
     <Compile Include="Views\DeviceViewCell.cs" />
-    <Compile Include="Views\Pages\DeviceLandingPage.cs" />
-    <Compile Include="Views\Pages\LoginPage.cs" />
-    <Compile Include="Views\Pages\MyDevicesPage.cs" />
-    <Compile Include="Views\Pages\SimonSaysPage.cs" />
     <Compile Include="ViewModels\DeviceLandingPageViewModel.cs" />
     <Compile Include="ViewModels\ScanDeviceViewModel.cs" />
     <Compile Include="Views\Controls\DashboardWidget.cs" />
-    <Compile Include="Views\Pages\ChangeLEDColorPage.cs" />
     <Compile Include="ViewModels\ChangeLEDColorViewModel.cs" />
     <Compile Include="Helpers\AppSettings.cs" />
     <Compile Include="Models\SimonSaysColors.cs" />
     <Compile Include="Helpers\InternetButtonHelper.cs" />
-    <Compile Include="Views\Pages\ReusableLoginPage.cs" />
     <Compile Include="Views\Controls\LoginEntry.cs" />
     <Compile Include="Views\Controls\LoginButton.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
-    <Compile Include="Views\Pages\NewUserSignUpPage.cs" />
     <Compile Include="ViewModels\NewUserSignUpViewModel.cs" />
+    <Compile Include="Interfaces\IStyledView.cs" />
+    <Compile Include="Pages\ChangeLEDColorPage.cs" />
+    <Compile Include="Pages\DeviceLandingPage.cs" />
+    <Compile Include="Pages\LoginPage.cs" />
+    <Compile Include="Pages\MyDevicesPage.cs" />
+    <Compile Include="Pages\NewUserSignUpPage.cs" />
+    <Compile Include="Pages\ReusableLoginPage.cs" />
+    <Compile Include="Pages\SimonSaysPage.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Akavache, Version=4.1.2.0, Culture=neutral, processorArchitecture=MSIL">
@@ -75,21 +76,6 @@
     </Reference>
     <Reference Include="Akavache.Sqlite3, Version=4.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\akavache.sqlite3.4.1.2\lib\Portable-Net45+Win8+WP8+Wpa81\Akavache.Sqlite3.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\packages\Newtonsoft.Json.8.0.3\lib\portable-net45+wp80+win8+wpa81+dnxcore50\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="Particle, Version=1.3.6078.18334, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\ParticleXamarinSDK.1.3.6078.18334\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Particle.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Splat, Version=1.3.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Splat.1.3.3\lib\Portable-net45+win+wpa81+wp80\Splat.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="SQLitePCL.raw, Version=0.6.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\SQLitePCL.raw_basic.0.7.0\lib\portable-net45+netcore45+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\SQLitePCL.raw.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Net.Http.Primitives">
@@ -133,8 +119,20 @@
       <HintPath>..\..\packages\Xamarin.Forms.2.3.1.114\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.Xaml.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Xamarin.Insights">
-      <HintPath>..\..\packages\Xamarin.Insights.1.12.3\lib\portable-win+net45+wp80+windows8+wpa+MonoAndroid10+MonoTouch10\Xamarin.Insights.dll</HintPath>
+    <Reference Include="Particle">
+      <HintPath>..\..\packages\ParticleXamarinSDK.1.3.6078.18334\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Particle.dll</HintPath>
+    </Reference>
+    <Reference Include="SQLitePCL.raw">
+      <HintPath>..\..\packages\SQLitePCL.raw_basic.0.8.6\lib\portable-net45+netcore45+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\SQLitePCL.raw.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\packages\Newtonsoft.Json.9.0.1\lib\portable-net45+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Splat">
+      <HintPath>..\..\packages\Splat.1.6.2\lib\Portable-net45+win+wpa81+wp80\Splat.dll</HintPath>
+    </Reference>
+    <Reference Include="TextStyles.Core">
+      <HintPath>..\..\libs\TextStyles.Core.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -142,13 +140,14 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Views\Layouts\" />
+    <Folder Include="Pages\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Binaries\rgbled.bin" />
     <EmbeddedResource Include="Binaries\followme.bin" />
     <EmbeddedResource Include="Binaries\shakeled.bin" />
     <EmbeddedResource Include="Binaries\simonsays.bin" />
+    <EmbeddedResource Include="Style.css" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\..\packages\Xamarin.Forms.2.1.0.6529\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets" Condition="Exists('..\..\packages\Xamarin.Forms.2.1.0.6529\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets')" />

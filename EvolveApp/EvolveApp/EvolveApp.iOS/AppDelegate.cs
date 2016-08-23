@@ -5,30 +5,28 @@ using System.Linq;
 using Foundation;
 using UIKit;
 
-using TextStyles.iOS;
 using Xamarin.Forms;
 using System.Threading.Tasks;
 using Plugin.Toasts;
+using Styles.iOS.Text;
+using Styles.Core.Text;
 
 namespace EvolveApp.iOS
 {
-	// The UIApplicationDelegate for the application. This class is responsible for launching the 
-	// User Interface of the application, as well as listening (and optionally responding) to 
-	// application events from iOS.
 	[Register("AppDelegate")]
 	public partial class AppDelegate : global::Xamarin.Forms.Platform.iOS.FormsApplicationDelegate
 	{
 		EvolveApp.App formsApp;
 		public override bool FinishedLaunching(UIApplication app, NSDictionary options)
 		{
-			Xamarin.Insights.Initialize("5c4f7461602c97af8a43c24bab1d1d92b65a1d73");
 			global::Xamarin.Forms.Forms.Init();
-			ZXing.Net.Mobile.Forms.iOS.Platform.Init();
 
 			EnumerateFonts();
 
 			// Initalise TextStyle
-			TextStyle.Instance.SetCSS(App.CSS);
+			DependencyService.Register<ITextStyle, TextStyle>();
+			DependencyService.Register<ToastNotificatorImplementation>(); // Register your dependency
+			ToastNotificatorImplementation.Init();
 
 #if DEBUG
 			Xamarin.Calabash.Start();
@@ -39,9 +37,6 @@ namespace EvolveApp.iOS
 				if (null != e.View.StyleId)
 					e.NativeView.AccessibilityIdentifier = e.View.StyleId;
 			};
-
-			DependencyService.Register<ToastNotificatorImplementation>(); // Register your dependency
-			ToastNotificatorImplementation.Init();
 
 			formsApp = new App();
 			LoadApplication(formsApp);

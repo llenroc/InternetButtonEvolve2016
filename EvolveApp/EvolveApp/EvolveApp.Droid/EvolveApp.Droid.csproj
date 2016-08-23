@@ -157,11 +157,11 @@
       <HintPath>..\..\packages\Xamarin.Forms.2.3.1.114\lib\MonoAndroid10\Xamarin.Forms.Xaml.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="TextStyles.Android">
-      <HintPath>..\..\libs\TextStyles.Android.dll</HintPath>
-    </Reference>
     <Reference Include="TextStyles.Core">
       <HintPath>..\..\libs\TextStyles.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="TextStyles.Droid">
+      <HintPath>..\..\libs\TextStyles.Droid.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -201,6 +201,7 @@
     <AndroidResource Include="Resources\drawable-hdpi\ic_clear_white.png" />
     <AndroidResource Include="Resources\drawable\ic_clear_white.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_clear_white.png" />
+    <AndroidResource Include="Resources\drawable\particle.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\AndroidManifest.xml" />

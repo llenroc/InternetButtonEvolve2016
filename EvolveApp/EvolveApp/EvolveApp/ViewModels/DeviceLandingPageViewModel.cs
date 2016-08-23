@@ -66,15 +66,11 @@ namespace EvolveApp.ViewModels
 			}
 		}
 
-		bool deviceConnected;
 		public bool DeviceConnected
 		{
 			get
 			{
 				return !Device.Connected;
-				if (Device.Connected)
-					return false;
-				return true;
 			}
 		}
 
@@ -86,20 +82,6 @@ namespace EvolveApp.ViewModels
 				return refreshDeviceCommand ?? (refreshDeviceCommand = new Command(async () => await RefreshDeviceAsync()));
 			}
 		}
-
-		//Command unclaimDeviceCommand;
-		//public Command UnclaimDeviceCommand
-		//{
-		//	get
-		//	{
-		//		return unclaimDeviceCommand ?? (unclaimDeviceCommand = new Command(async () => await UnclaimDeviceAsync()));
-		//	}
-		//}
-
-		//public async Task UnclaimDeviceAsync()
-		//{
-		//	await Device.UnclaimAsync();
-		//}
 
 		public bool InteractButtonLock
 		{

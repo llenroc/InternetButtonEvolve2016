@@ -1,7 +1,7 @@
 ﻿using System;
 using EvolveApp;
 using Foundation;
-using TextStyles.iOS;
+using Styles.iOS.Text;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
@@ -19,7 +19,7 @@ namespace EvolveApp.iOS
 			{
 				var _styledElement = e.NewElement as StyledButton;
 
-				TextStyle.Style<UILabel>(Control.TitleLabel, _styledElement.CssStyle);
+				TextStyle.Main.Style<UILabel>(Control.TitleLabel, _styledElement.CssStyle);
 			}
 		}
 	}

@@ -205,13 +205,6 @@ namespace EvolveApp.ViewModels
 				{
 					if (result == "1")
 					{
-						Insights.Track("Correct Move", new Dictionary<string, string> {
-							{"Player Entry", playerEntry},
-							{"Move Count", playerEntry.Length.ToString()},
-							{"Made By", ParticleCloud.SharedInstance.LoggedInUsername},
-							{"Device Name", ParticleCloud.SharedInstance.LoggedInUsername}
-						});
-
 						Device.BeginInvokeOnMainThread(() =>
 						{
 							var notificator = DependencyService.Get<IToastNotificator>();
@@ -403,18 +396,11 @@ namespace EvolveApp.ViewModels
 			{
 				gameId += rand.Next(0, 9);
 			}
-			Insights.Track("Game Started", new Dictionary<string, string>
-			{
-				{"Game ID", gameId},
-				{"Started By", ParticleCloud.SharedInstance.LoggedInUsername},
-				{"Device Name", ParticleCloud.SharedInstance.LoggedInUsername}
-			});
 		}
 
 		public async Task Winner()
 		{
 			playerEntry = "Winner";
-			Insights.Track("Game Won", "Won By", ParticleCloud.SharedInstance.LoggedInUsername);
 
 			//if (Device.OS == TargetPlatform.iOS || Device.OS == TargetPlatform.Android)
 			if (Device.OS != TargetPlatform.Windows)

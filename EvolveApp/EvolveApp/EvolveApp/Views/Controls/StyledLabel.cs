@@ -1,14 +1,13 @@
-﻿using Xamarin.Forms;
+﻿using System.Collections.Generic;
+using Xamarin.Forms;
+using Styles.Core.Text;
 
-namespace EvolveApp
+namespace Styles.XForms.Core
 {
-	public class StyledLabel : Label
+	public class StyledLabel : Label, IStyledView
 	{
 		public string CssStyle { get; set; }
-	}
-
-	public interface IStyledLabel
-	{
-
+		public string TextStyleInstance { get; set; }
+		public List<CssTagStyle> CustomTags { get; set; }
 	}
 }
